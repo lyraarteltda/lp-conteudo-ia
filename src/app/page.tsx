@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   ChevronDown,
@@ -14,6 +14,10 @@ import {
   Zap,
   Phone,
   X,
+  Globe,
+  FlaskConical,
+  Video,
+  Rocket,
 } from "lucide-react";
 import { trackLead, getUtmParams } from "@/lib/utils";
 
@@ -47,6 +51,26 @@ const scaleIn = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
+function DotGrid({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`absolute inset-0 pointer-events-none opacity-[0.03] ${className}`}
+      style={{
+        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
+        backgroundSize: "24px 24px",
+      }}
+    />
+  );
+}
+
+function GoldDivider() {
+  return (
+    <div className="relative h-px w-full overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#F5A623]/40 to-transparent" />
+    </div>
+  );
+}
+
 function CtaButton({
   children,
   href,
@@ -65,7 +89,7 @@ function CtaButton({
 
   const base =
     variant === "primary"
-      ? "bg-[#F5A623] hover:bg-[#FFB84D] text-black font-bold shadow-[0_0_30px_rgba(245,166,35,0.25)] hover:shadow-[0_0_40px_rgba(245,166,35,0.35)] transition-all duration-300"
+      ? "bg-gradient-to-r from-[#F5A623] to-[#E8951A] hover:from-[#FFB84D] hover:to-[#F5A623] text-black font-bold shadow-[0_0_30px_rgba(245,166,35,0.25)] hover:shadow-[0_0_40px_rgba(245,166,35,0.35)] transition-all duration-300"
       : variant === "outline"
       ? "border border-white/20 text-white hover:bg-white/5 transition-all duration-300"
       : "text-[#F5A623] hover:text-[#FFB84D] hover:bg-[#F5A623]/5 transition-all duration-300";
@@ -94,46 +118,62 @@ function SectionWrapper({
   className = "",
   id,
   gradient,
+  dots,
+  paddingClass,
 }: {
   children: React.ReactNode;
-  bg?: "primary" | "secondary";
+  bg?: "primary" | "secondary" | "dark" | "elevated";
   className?: string;
   id?: string;
   gradient?: boolean;
+  dots?: boolean;
+  paddingClass?: string;
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const bgClass = {
+    primary: "bg-[#0A0A0A]",
+    secondary: "bg-[#0F0F0F]",
+    dark: "bg-[#080810]",
+    elevated: "bg-[#131318]",
+  }[bg];
+
   return (
-    <section
-      id={id}
-      ref={ref}
-      className={`relative py-24 md:py-32 px-6 md:px-8 ${
-        bg === "secondary" ? "bg-[#111111]" : "bg-[#0A0A0A]"
-      } ${className}`}
-    >
-      {gradient && (
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(99,71,217,0.15),rgba(59,130,246,0.10))] pointer-events-none" />
-      )}
-      <motion.div
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={stagger}
-        className="relative max-w-[1200px] mx-auto"
+    <>
+      <GoldDivider />
+      <section
+        id={id}
+        ref={ref}
+        className={`relative ${paddingClass || "py-24 md:py-32"} px-6 md:px-8 ${bgClass} ${className}`}
       >
-        {children}
-      </motion.div>
-    </section>
+        {gradient && (
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(99,71,217,0.08),rgba(59,130,246,0.05),rgba(245,166,35,0.03))] pointer-events-none" />
+        )}
+        {dots && <DotGrid />}
+        <motion.div
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={stagger}
+          className="relative max-w-[1200px] mx-auto"
+        >
+          {children}
+        </motion.div>
+      </section>
+    </>
   );
 }
 
 function CountUp({ end, suffix = "", prefix = "" }: { end: number; suffix?: string; prefix?: string }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(end);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || hasAnimated.current) return;
+    hasAnimated.current = true;
+    setCount(0);
     let start = 0;
     const duration = 1500;
     const step = end / (duration / 16);
@@ -169,7 +209,7 @@ function Accordion({
       {items.map((item, i) => (
         <div
           key={i}
-          className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.08)] rounded-2xl mb-4 overflow-hidden"
+          className="bg-[rgba(255,255,255,0.04)] backdrop-blur-sm border border-[rgba(255,255,255,0.06)] rounded-2xl mb-4 overflow-hidden hover:border-[rgba(245,166,35,0.15)] transition-colors duration-300"
         >
           <button
             onClick={() => setOpen(open === i ? -1 : i)}
@@ -224,9 +264,20 @@ function ToolCarousel() {
   );
 }
 
+const avatarGradients = [
+  "from-[#F5A623] to-[#FF6B35]",
+  "from-[#6366F1] to-[#8B5CF6]",
+  "from-[#10B981] to-[#059669]",
+  "from-[#EC4899] to-[#F43F5E]",
+  "from-[#3B82F6] to-[#1D4ED8]",
+];
+
+const pillarIcons = [Globe, FlaskConical, Video, Rocket];
+
 export default function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [showMobileCta, setShowMobileCta] = useState(false);
+  const [dismissedMobileCta, setDismissedMobileCta] = useState(false);
   const [navBlur, setNavBlur] = useState(false);
 
   useEffect(() => {
@@ -340,7 +391,7 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 2: PAIN AMPLIFICATION */}
-      <SectionWrapper bg="secondary" id="pain">
+      <SectionWrapper bg="elevated" id="pain" dots paddingClass="py-20 md:py-28">
         <motion.div variants={fadeIn} className="flex justify-center mb-6">
           <span className="inline-flex items-center gap-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-full px-4 py-2 text-sm font-medium">
             <AlertTriangle className="w-4 h-4" />
@@ -368,10 +419,10 @@ export default function LandingPage() {
             <motion.div
               key={i}
               variants={fadeInLeft}
-              className="flex items-start gap-3 bg-white/[0.03] border border-white/5 rounded-xl p-4 md:p-5 mb-3"
+              className="flex items-start gap-3 bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 md:p-5 mb-3 hover:border-red-500/20 transition-colors duration-300"
             >
               <X className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-              <p className="text-white/70">
+              <p className="text-white/80">
                 <span className="font-semibold text-white">{item.bold}</span> — {item.desc}
               </p>
             </motion.div>
@@ -387,14 +438,14 @@ export default function LandingPage() {
           <div className="text-5xl md:text-7xl font-extrabold text-[#F5A623]">
             <CountUp end={47} suffix="x" />
           </div>
-          <p className="text-white/70 text-lg mt-4">
+          <p className="text-white/80 text-lg mt-4">
             Em 2026, criadores que usam IA para conteúdo produzem <span className="font-bold text-white">47x mais</span> do que quem faz manual. Não é exagero. É matemática: enquanto você grava 1 vídeo, o sistema que vou te mostrar pesquisa, roteiriza, grava com avatar, edita e posta automaticamente — tudo sem você tocar no celular.
           </p>
         </motion.div>
       </SectionWrapper>
 
       {/* SECTION 3: SOLUTION — 4 PILLARS */}
-      <SectionWrapper bg="primary" gradient id="solution">
+      <SectionWrapper bg="dark" gradient id="solution" paddingClass="py-28 md:py-36">
         <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl lg:text-5xl font-bold text-white text-center">
           Apresentamos: O{" "}
           <span className="text-[#F5A623]">Sistema Completo</span> de Criação de Conteúdo com IA
@@ -409,43 +460,42 @@ export default function LandingPage() {
         <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-12">
           {[
             {
-              emoji: "🌍",
               title: "Inteligência Global",
               desc: "Nosso agente de IA monitora os 100+ melhores criadores do seu nicho em 10+ países (Japão, Alemanha, EUA, Índia...) e identifica o que está viralizando ANTES de chegar ao Brasil. Você nunca mais precisa 'ter ideias' — a IA traz os dados.",
             },
             {
-              emoji: "🔬",
               title: "Engenharia Reversa",
               desc: "A IA filtra apenas os vídeos com 50K+ views, 1K+ comentários ou 10K+ likes. Depois transcreve, analisa hooks, formatos e temas — e te entrega um relatório completo do que funciona. É como ter um time de pesquisa de R$15K/mês trabalhando de graça.",
             },
             {
-              emoji: "🎬",
               title: "Produção em Escala",
               desc: "Com um clique, o agente roteirista cria roteiros prontos para gravação usando a estrutura de 10 linhas dos vídeos virais. Não quer aparecer? Sem problema — use avatares de IA que falam com sua voz, seus gestos, sua cara. Ou não. Funciona dos dois jeitos.",
             },
             {
-              emoji: "🚀",
               title: "Distribuição Automatizada",
               desc: "O vídeo editado vai direto do Google Drive para Instagram, TikTok, YouTube e todas as plataformas — com título otimizado por IA, descrição SEO e agendamento automático. Você dorme, o sistema posta.",
             },
-          ].map((pillar, i) => (
-            <motion.div
-              key={i}
-              variants={fadeInUp}
-              whileHover={{ y: -4, borderColor: "rgba(245,166,35,0.3)" }}
-              className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.08)] rounded-2xl p-6 md:p-8 transition-shadow duration-300 hover:shadow-lg"
-            >
-              <div className="w-14 h-14 rounded-xl bg-[#F5A623]/10 flex items-center justify-center text-4xl">
-                {pillar.emoji}
-              </div>
-              <h3 className="text-xl font-bold text-white mt-4">{pillar.title}</h3>
-              <p className="text-white/70 text-base mt-3 leading-relaxed">{pillar.desc}</p>
-            </motion.div>
-          ))}
+          ].map((pillar, i) => {
+            const Icon = pillarIcons[i];
+            return (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                whileHover={{ y: -4, borderColor: "rgba(245,166,35,0.3)" }}
+                className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 md:p-8 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(245,166,35,0.1)]"
+              >
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#F5A623]/20 to-[#F5A623]/5 border border-[#F5A623]/20 flex items-center justify-center">
+                  <Icon className="w-7 h-7 text-[#F5A623]" />
+                </div>
+                <h3 className="text-xl font-bold text-white mt-4">{pillar.title}</h3>
+                <p className="text-white/70 text-base mt-3 leading-relaxed">{pillar.desc}</p>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
-        <motion.div variants={fadeIn} className="bg-[#1A1A1A] border border-white/5 rounded-2xl p-8 max-w-[900px] mx-auto mt-12 text-center">
-          <p className="text-white/70 text-lg leading-relaxed">
+        <motion.div variants={fadeIn} className="bg-[#141418] border border-white/[0.06] rounded-2xl p-8 max-w-[900px] mx-auto mt-12 text-center">
+          <p className="text-white/80 text-lg leading-relaxed">
             Juntos, esses 4 pilares eliminam os 3 maiores custos de criação de conteúdo:{" "}
             <span className="font-bold text-white">tempo</span> (de 20h para 2h/semana),{" "}
             <span className="font-bold text-white">dinheiro</span> (de R$9.5K/mês em equipe para R$0) e{" "}
@@ -462,7 +512,7 @@ export default function LandingPage() {
       </SectionWrapper>
 
       {/* SECTION 4: CURRICULUM */}
-      <SectionWrapper bg="secondary" id="curriculum">
+      <SectionWrapper bg="secondary" id="curriculum" dots paddingClass="py-24 md:py-32">
         <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl lg:text-5xl font-bold text-white text-center">
           Exatamente O Que Você Vai Aprender{" "}
           <span className="text-[#F5A623]">(e Implementar)</span>
@@ -619,7 +669,7 @@ export default function LandingPage() {
       </SectionWrapper>
 
       {/* SECTION 5: SOCIAL PROOF */}
-      <SectionWrapper bg="primary" gradient id="proof">
+      <SectionWrapper bg="dark" gradient id="proof" paddingClass="py-28 md:py-36">
         <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl lg:text-5xl font-bold text-white text-center">
           Resultados <span className="text-[#F5A623]">Reais</span> de Quem Já Implementou
         </motion.h2>
@@ -633,7 +683,7 @@ export default function LandingPage() {
             <motion.div
               key={i}
               variants={fadeInUp}
-              className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.08)] rounded-2xl p-8 text-center"
+              className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 text-center hover:border-[#F5A623]/20 transition-colors duration-300"
             >
               <div className="text-4xl md:text-5xl font-extrabold text-[#F5A623]">
                 <CountUp end={stat.num} suffix={stat.suffix} />
@@ -656,16 +706,21 @@ export default function LandingPage() {
               <motion.div
                 key={i}
                 variants={fadeIn}
-                className="snap-center min-w-[280px] md:min-w-0 bg-[#1A1A1A] border border-white/5 rounded-2xl p-6 relative flex-shrink-0"
+                className="snap-center min-w-[280px] md:min-w-0 bg-gradient-to-br from-[#161620] to-[#0E0E14] border border-white/[0.08] hover:border-[#F5A623]/20 rounded-2xl p-6 relative flex-shrink-0 transition-all duration-300"
               >
-                <span className="absolute top-4 right-4 text-[#F5A623] text-4xl opacity-30 leading-none">&quot;</span>
+                <span className="absolute top-4 right-4 text-[#F5A623] text-4xl opacity-20 leading-none">&quot;</span>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-[#F5A623]/20 text-[#F5A623] flex items-center justify-center font-bold text-lg">
-                    {t.name[0]}
+                  <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${avatarGradients[i % avatarGradients.length]} flex items-center justify-center ring-2 ring-white/10 ring-offset-2 ring-offset-[#0E0E14]`}>
+                    <span className="font-bold text-white text-lg drop-shadow-sm">
+                      {t.name.split(" ").map(n => n[0]).join("")}
+                    </span>
                   </div>
-                  <span className="font-semibold text-white">{t.name}</span>
+                  <div>
+                    <span className="font-semibold text-white block">{t.name}</span>
+                    <span className="text-white/40 text-xs">Aluno Maestros da IA</span>
+                  </div>
                 </div>
-                <p className="text-white/70 text-sm mt-3 italic leading-relaxed">&quot;{t.quote}&quot;</p>
+                <p className="text-white/80 text-sm mt-4 italic leading-relaxed">&quot;{t.quote}&quot;</p>
                 <div className="flex gap-0.5 mt-4">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star key={s} className="w-4 h-4 text-[#F5A623] fill-[#F5A623]" />
@@ -678,7 +733,7 @@ export default function LandingPage() {
       </SectionWrapper>
 
       {/* SECTION 6: VALUE STACK */}
-      <SectionWrapper bg="secondary" id="value">
+      <SectionWrapper bg="elevated" id="value" paddingClass="py-20 md:py-28">
         <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl lg:text-5xl font-bold text-white text-center">
           Quanto Custaria Montar Tudo Isso <span className="text-[#F5A623]">Sozinho</span>?
         </motion.h2>
@@ -697,7 +752,7 @@ export default function LandingPage() {
             <motion.div
               key={i}
               variants={fadeInRight}
-              className={`flex justify-between items-center py-4 px-6 border-b border-white/5 ${
+              className={`flex justify-between items-center py-4 px-6 border-b border-white/[0.06] rounded-lg ${
                 i % 2 === 0 ? "bg-white/[0.02]" : ""
               }`}
             >
@@ -718,7 +773,7 @@ export default function LandingPage() {
           </motion.div>
         </motion.div>
 
-        <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-center text-white/70 max-w-[600px] mx-auto mt-12 leading-relaxed">
+        <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-center text-white/80 max-w-[600px] mx-auto mt-12 leading-relaxed">
           Você não vai pagar <span className="line-through text-white/45">R$142K</span>. Nem{" "}
           <span className="line-through text-white/45">R$50K</span>. Nem{" "}
           <span className="line-through text-white/45">R$10K</span>.{" "}
@@ -727,7 +782,7 @@ export default function LandingPage() {
       </SectionWrapper>
 
       {/* SECTION 7: OFFER & PRICING */}
-      <SectionWrapper bg="primary" gradient id="pricing" className="relative">
+      <SectionWrapper bg="dark" gradient id="pricing" className="relative" paddingClass="py-28 md:py-36">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(245,166,35,0.03)_50%,rgba(0,0,0,0)_100%)] pointer-events-none" />
 
         <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl lg:text-5xl font-bold text-white text-center relative">
@@ -753,13 +808,14 @@ export default function LandingPage() {
           ].map((item, i) => (
             <motion.div key={i} variants={fadeInLeft} className="flex items-start gap-3 py-2">
               <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-              <span className="text-white/70">{item}</span>
+              <span className="text-white/80">{item}</span>
             </motion.div>
           ))}
         </motion.div>
 
         <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-12 relative">
-          <motion.div variants={fadeInUp} className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-white/10 rounded-2xl p-8">
+          {/* Tier R$3K */}
+          <motion.div variants={fadeInUp} className="bg-white/[0.04] backdrop-blur-md border border-white/[0.08] rounded-2xl p-8 hover:border-white/[0.15] transition-all duration-300">
             <span className="bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-full">FORMAÇÃO COMPLETA</span>
             <p className="text-sm font-bold text-white/70 tracking-widest mt-4">TUDO INCLUSO</p>
             <p className="text-white/45 line-through text-lg mt-4">R$7.000</p>
@@ -777,25 +833,29 @@ export default function LandingPage() {
             </ul>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border-2 border-[#F5A623]/50 rounded-2xl p-8 relative order-first md:order-last animate-pulse-glow">
-            <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#F5A623] text-black text-xs font-bold px-4 py-1.5 rounded-full">
-              MAIS POPULAR
-            </span>
-            <span className="bg-[#F5A623]/10 text-[#F5A623] text-xs font-bold px-3 py-1 rounded-full">COMECE PELO ESSENCIAL</span>
-            <p className="text-sm font-bold text-white/70 tracking-widest mt-4">ACESSO FUNDAMENTAL</p>
-            <p className="text-white/45 line-through text-lg mt-4">R$30.000</p>
-            <p className="text-4xl font-extrabold text-[#F5A623] mt-1">R$997 <span className="text-lg font-normal text-white/70">à vista</span></p>
-            <p className="text-white/70 text-sm mt-1">ou 12x R$97</p>
-            <CtaButton href="https://chat.maestrosdaia.com" className="w-full mt-6 !justify-center">
-              GARANTIR MINHA VAGA
-            </CtaButton>
-            <ul className="mt-6 space-y-2">
-              {["Acesso ao módulo completo", "Garantia 90 dias de execução", "Templates prontos", "1 ano de acesso"].map((f) => (
-                <li key={f} className="flex items-center gap-2 text-white/70 text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" /> {f}
-                </li>
-              ))}
-            </ul>
+          {/* Tier R$997 — recommended */}
+          <motion.div variants={fadeInUp} className="relative order-first md:order-last overflow-hidden rounded-2xl">
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#F5A623]/20 via-transparent to-[#F5A623]/10 pointer-events-none" />
+            <div className="relative bg-white/[0.04] backdrop-blur-md border-2 border-[#F5A623]/40 rounded-2xl p-8 animate-pulse-glow">
+              <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#F5A623] to-[#E8951A] text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-[0_4px_12px_rgba(245,166,35,0.3)]">
+                MAIS POPULAR
+              </span>
+              <span className="bg-[#F5A623]/10 text-[#F5A623] text-xs font-bold px-3 py-1 rounded-full">COMECE PELO ESSENCIAL</span>
+              <p className="text-sm font-bold text-white/70 tracking-widest mt-4">ACESSO FUNDAMENTAL</p>
+              <p className="text-white/45 line-through text-lg mt-4">R$30.000</p>
+              <p className="text-4xl font-extrabold text-[#F5A623] mt-1">R$997 <span className="text-lg font-normal text-white/70">à vista</span></p>
+              <p className="text-white/70 text-sm mt-1">ou 12x R$97</p>
+              <CtaButton href="https://chat.maestrosdaia.com" className="w-full mt-6 !justify-center">
+                GARANTIR MINHA VAGA
+              </CtaButton>
+              <ul className="mt-6 space-y-2">
+                {["Acesso ao módulo completo", "Garantia 90 dias de execução", "Templates prontos", "1 ano de acesso"].map((f) => (
+                  <li key={f} className="flex items-center gap-2 text-white/70 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" /> {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
         </motion.div>
 
@@ -808,9 +868,9 @@ export default function LandingPage() {
       </SectionWrapper>
 
       {/* SECTION 8: GUARANTEE */}
-      <SectionWrapper bg="secondary" id="guarantee">
+      <SectionWrapper bg="secondary" id="guarantee" dots paddingClass="py-24 md:py-32">
         <motion.div variants={scaleIn} className="flex justify-center">
-          <div className="w-24 h-24 rounded-full bg-[#F5A623]/10 flex items-center justify-center">
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#F5A623]/20 to-[#F5A623]/5 border border-[#F5A623]/20 flex items-center justify-center">
             <ShieldCheck className="w-16 h-16 text-[#F5A623]" />
           </div>
         </motion.div>
@@ -820,23 +880,23 @@ export default function LandingPage() {
         </motion.h2>
 
         <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-10">
-          <motion.div variants={fadeInUp} className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[#F5A623]/15 rounded-2xl p-8 order-last md:order-first">
+          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.05] to-white/[0.02] backdrop-blur-sm border border-[#F5A623]/15 rounded-2xl p-8 order-last md:order-first hover:border-[#F5A623]/25 transition-colors duration-300">
             <div className="flex items-center gap-2 text-white/45 text-sm font-medium">🛡️ Tier R$3K</div>
             <h3 className="text-xl font-bold text-white mt-3">
               Garantia <span className="text-[#F5A623]">7 Dias</span>
             </h3>
-            <p className="text-white/70 text-base mt-4 leading-relaxed">
+            <p className="text-white/80 text-base mt-4 leading-relaxed">
               Acesse TUDO. Se em 7 dias você não sentir que isso vale pelo menos 10x o investimento, devolvemos{" "}
               <span className="font-semibold text-[#F5A623]">100% do seu dinheiro</span>. Sem perguntas. Sem burocracia.
             </p>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[#F5A623]/15 rounded-2xl p-8">
+          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.05] to-white/[0.02] backdrop-blur-sm border border-[#F5A623]/15 rounded-2xl p-8 hover:border-[#F5A623]/25 transition-colors duration-300">
             <div className="flex items-center gap-2 text-white/45 text-sm font-medium">🛡️ Tier R$997</div>
             <h3 className="text-xl font-bold text-white mt-3">
               Garantia <span className="text-[#F5A623]">90 Dias</span> de Execução
             </h3>
-            <p className="text-white/70 text-base mt-4 leading-relaxed">
+            <p className="text-white/80 text-base mt-4 leading-relaxed">
               Assista às aulas, implemente as automações, rode o sistema. Se em 90 dias você não triplicar o valor investido, devolvemos{" "}
               <span className="font-semibold text-[#F5A623]">100% dos seus R$997</span> +{" "}
               <span className="font-semibold text-[#F5A623]">1 hora de consultoria gratuita</span> para consertar seu funil. Nós assumimos o risco.
@@ -846,41 +906,55 @@ export default function LandingPage() {
       </SectionWrapper>
 
       {/* SECTION 9: FOUNDERS */}
-      <SectionWrapper bg="primary" id="founders">
+      <SectionWrapper bg="elevated" id="founders" paddingClass="py-28 md:py-36">
         <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl lg:text-5xl font-bold text-white text-center">
           Quem São os <span className="text-[#F5A623]">Maestros</span> Por Trás do Sistema
         </motion.h2>
 
         <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[900px] mx-auto mt-12">
-          <motion.div variants={fadeInUp} className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.08)] rounded-2xl p-8 text-center">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#F5A623]/30 to-[#F5A623]/10 mx-auto flex items-center justify-center">
-              <span className="text-2xl font-bold text-[#F5A623]">AE</span>
+          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl overflow-hidden hover:border-[#F5A623]/20 transition-colors duration-300">
+            <div className="h-2 bg-gradient-to-r from-[#F5A623] to-[#FF6B35]" />
+            <div className="p-8">
+              <div className="flex items-center gap-5">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#F5A623] to-[#FF6B35] flex items-center justify-center ring-4 ring-[#F5A623]/10 flex-shrink-0">
+                  <span className="text-xl font-bold text-white drop-shadow-sm">AE</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Arthur Endo</h3>
+                  <p className="text-[#F5A623] text-sm font-semibold tracking-wide uppercase">Co-Fundador & CEO</p>
+                </div>
+              </div>
+              <p className="text-white/80 text-sm mt-5 leading-relaxed">
+                Músico premiado com turnês internacionais. Doutor Honoris Causa. Zero background em programação. Transformou um simples curso de violão em R$2.5 milhões em 15 meses usando agentes de IA.
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-white mt-4">Arthur Endo</h3>
-            <p className="text-[#F5A623] text-sm font-medium">Co-Fundador</p>
-            <p className="text-white/70 text-sm mt-3 leading-relaxed">
-              Músico premiado com turnês internacionais. Doutor Honoris Causa. Zero background em programação. Transformou um simples curso de violão em R$2.5 milhões em 15 meses usando agentes de IA.
-            </p>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.08)] rounded-2xl p-8 text-center">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#F5A623]/30 to-[#F5A623]/10 mx-auto flex items-center justify-center">
-              <span className="text-2xl font-bold text-[#F5A623]">LZ</span>
+          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl overflow-hidden hover:border-[#F5A623]/20 transition-colors duration-300">
+            <div className="h-2 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6]" />
+            <div className="p-8">
+              <div className="flex items-center gap-5">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center ring-4 ring-[#6366F1]/10 flex-shrink-0">
+                  <span className="text-xl font-bold text-white drop-shadow-sm">LZ</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Lyria Zoccal</h3>
+                  <p className="text-[#F5A623] text-sm font-semibold tracking-wide uppercase">Co-Fundadora & COO</p>
+                </div>
+              </div>
+              <p className="text-white/80 text-sm mt-5 leading-relaxed">
+                Administradora com experiência em grandes empresas de tech (SAP). Especialista em IA aplicada a processos corporativos e ERP. Consultora Enterprise.
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-white mt-4">Lyria Zoccal</h3>
-            <p className="text-[#F5A623] text-sm font-medium">Co-Fundadora</p>
-            <p className="text-white/70 text-sm mt-3 leading-relaxed">
-              Administradora com experiência em grandes empresas de tech (SAP). Especialista em IA aplicada a processos corporativos e ERP. Consultora Enterprise.
-            </p>
           </motion.div>
         </motion.div>
 
         <motion.div
           variants={fadeIn}
-          className="bg-[#1A1A1A] border-l-4 border-[#F5A623] rounded-r-2xl p-8 max-w-[800px] mx-auto mt-12 relative"
+          className="bg-[#141418] border-l-4 border-[#F5A623] rounded-r-2xl p-8 max-w-[800px] mx-auto mt-12 relative"
         >
           <span className="absolute -top-2 left-4 text-[#F5A623] text-6xl opacity-20 leading-none">&quot;</span>
-          <p className="text-white/70 text-base leading-relaxed italic">
+          <p className="text-white/80 text-base leading-relaxed italic">
             Nenhum dos dois sabia programar. Gastaram{" "}
             <span className="font-semibold text-white not-italic">R$8K em consultoria de IA</span> e receberam um PDF genérico. Gastaram{" "}
             <span className="font-semibold text-white not-italic">R$12K em ferramentas</span> e nunca integraram. Contrataram um{" "}
@@ -891,7 +965,7 @@ export default function LandingPage() {
       </SectionWrapper>
 
       {/* SECTION 10: FAQ */}
-      <SectionWrapper bg="secondary" id="faq">
+      <SectionWrapper bg="secondary" id="faq" dots paddingClass="py-24 md:py-32">
         <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold text-white text-center">
           Perguntas Frequentes
         </motion.h2>
@@ -902,7 +976,7 @@ export default function LandingPage() {
               {
                 trigger: <span>Preciso saber programar?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/70 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
                     Zero. Todas as automações são montadas com ferramentas visuais (Make, N8N) com nossos templates prontos. Se você sabe arrastar e soltar, sabe usar.
                   </div>
                 ),
@@ -910,7 +984,7 @@ export default function LandingPage() {
               {
                 trigger: <span>Funciona para qualquer nicho?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/70 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
                     Sim. O sistema de pesquisa busca concorrentes do SEU nicho em 10+ países. Já usamos para fitness, educação, tech, saúde, gastronomia e mais.
                   </div>
                 ),
@@ -918,7 +992,7 @@ export default function LandingPage() {
               {
                 trigger: <span>E se eu não quiser aparecer na câmera?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/70 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
                     Perfeito. O módulo 3 ensina a criar avatares de IA que falam com sua voz e aparência — ou usar avatares genéricos. Você nunca precisa gravar se não quiser.
                   </div>
                 ),
@@ -926,7 +1000,7 @@ export default function LandingPage() {
               {
                 trigger: <span>As ferramentas são pagas?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/70 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
                     Algumas sim (Make, HeyGen, Metricool), mas mostramos as opções mais baratas e alternativas gratuitas quando existem. O investimento em ferramentas gira em torno de R$100-200/mês.
                   </div>
                 ),
@@ -934,7 +1008,7 @@ export default function LandingPage() {
               {
                 trigger: <span>Em quanto tempo vejo resultados?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/70 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
                     A primeira automação (postagem automática) pode estar rodando no mesmo dia. Nosso resultado comprovado: 20K seguidores em 30 dias com o sistema completo.
                   </div>
                 ),
@@ -942,7 +1016,7 @@ export default function LandingPage() {
               {
                 trigger: <span>Posso acessar depois dos 7/90 dias?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/70 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
                     Sim, você tem 1 ano de acesso completo a todo o conteúdo, com atualizações mensais inclusas.
                   </div>
                 ),
@@ -953,11 +1027,13 @@ export default function LandingPage() {
       </SectionWrapper>
 
       {/* SECTION 11: FINAL CTA */}
+      <GoldDivider />
       <section
         id="final-cta"
-        className="relative py-24 md:py-32 px-6 bg-[#0A0A0A] overflow-hidden"
+        className="relative py-28 md:py-36 px-6 bg-[#080810] overflow-hidden"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#0A0A0A_0%,rgba(245,166,35,0.05)_50%,#0A0A0A_100%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#080810_0%,rgba(245,166,35,0.05)_50%,#080810_100%)] pointer-events-none" />
+        <DotGrid className="opacity-[0.02]" />
 
         <motion.div
           initial="hidden"
@@ -1007,6 +1083,7 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 12: FOOTER */}
+      <GoldDivider />
       <footer className="border-t border-white/5 py-12 px-6 bg-[#0A0A0A]">
         <div className="max-w-[1200px] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -1059,14 +1136,21 @@ export default function LandingPage() {
 
       {/* STICKY MOBILE CTA BAR */}
       <AnimatePresence>
-        {showMobileCta && (
+        {showMobileCta && !dismissedMobileCta && (
           <motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-t border-white/10 px-4 py-3 md:hidden"
+            className="fixed bottom-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-xl border-t border-[#F5A623]/20 px-4 py-3 md:hidden"
           >
+            <button
+              onClick={() => setDismissedMobileCta(true)}
+              className="absolute -top-8 right-3 w-6 h-6 rounded-full bg-black/80 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+              aria-label="Fechar"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
             <div className="flex items-center justify-between">
               <span className="text-sm text-white font-semibold">A partir de 12x R$97</span>
               <a
@@ -1074,7 +1158,7 @@ export default function LandingPage() {
                 onClick={() => trackLead()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#F5A623] hover:bg-[#FFB84D] text-black text-sm px-6 py-2.5 rounded-lg font-bold transition-colors"
+                className="bg-gradient-to-r from-[#F5A623] to-[#E8951A] hover:from-[#FFB84D] hover:to-[#F5A623] text-black text-sm px-6 py-2.5 rounded-lg font-bold transition-all duration-300 shadow-[0_0_20px_rgba(245,166,35,0.3)]"
               >
                 Começar Agora
               </a>
