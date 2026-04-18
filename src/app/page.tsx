@@ -607,35 +607,128 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══ SOCIAL PROOF ═══ */}
+      {/* ═══ INSTAGRAM PROOF — Real Metrics ═══ */}
       <SectionDivider />
       <section id="proof" className="relative py-28 md:py-40 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute w-[600px] h-[600px] rounded-full bg-blue-500/[0.04] blur-[130px] top-1/4 -left-40" />
+          <div className="absolute w-[400px] h-[400px] rounded-full bg-[#E1306C]/[0.04] blur-[100px] bottom-20 right-20" />
         </div>
         <div className="relative max-w-[1200px] mx-auto">
-          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
-            Resultados <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">Reais</span> de Quem Já Implementou
-          </h2>
+          <div className="flex justify-center mb-6">
+            <span className="inline-flex items-center gap-2 bg-[#E1306C]/[0.08] text-[#E1306C] border border-[#E1306C]/15 rounded-full px-4 py-2 text-sm font-medium">
+              <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              @maestrosdaia — Conta Verificada
+            </span>
+          </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[900px] mx-auto mt-14">
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
+            Não Acredite em Nós.{" "}
+            <span className="bg-gradient-to-r from-[#E1306C] to-[#F5A623] bg-clip-text text-transparent">Acredite nos Números.</span>
+          </h2>
+          <p className="text-lg text-center max-w-[600px] mx-auto mt-4" style={{ color: c.body }}>
+            Métricas reais do Instagram <span className="font-semibold" style={{ color: c.heading }}>@maestrosdaia</span> nos últimos 30 dias. Sem edição. Sem truques.
+          </p>
+
+          {/* Main stats grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-[900px] mx-auto mt-12">
             {[
-              { end: 20, suffix: "K", label: "seguidores", desc: "no TikTok + Instagram em 30 dias" },
-              { end: 2, suffix: "h", label: "por semana", desc: "(antes eram 20+ horas)" },
-              { end: 200, suffix: "%", label: "crescimento", desc: "por semana comprovado" },
+              { value: "99.6K", label: "Seguidores", detail: "+23.9% desde Jan", color: "#F5A623" },
+              { value: "4.6M", label: "Visualizações", detail: "em 30 dias", color: "#E1306C" },
+              { value: "1M+", label: "Contas Alcançadas", detail: "em 30 dias", color: "#6366F1" },
+              { value: "469K", label: "Interações", detail: "curtidas + comentários + saves", color: "#10B981" },
             ].map((stat, i) => (
-              <div key={i} className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl p-8 text-center hover:border-[#F5A623]/20 transition-all duration-300">
-                <div className="font-display text-4xl md:text-5xl font-bold text-[#F5A623]">
-                  <span className="gsap-counter" data-end={stat.end} data-suffix={stat.suffix}>{stat.end}{stat.suffix}</span>
+              <div key={i} className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl p-5 md:p-6 text-center hover:border-white/[0.15] transition-all duration-300 group">
+                <div className="font-display text-3xl md:text-4xl font-bold" style={{ color: stat.color }}>
+                  {stat.value}
                 </div>
-                <p className="text-base font-semibold mt-2" style={{ color: c.heading }}>{stat.label}</p>
-                <p className="text-sm mt-1" style={{ color: c.caption }}>{stat.desc}</p>
+                <p className="text-sm font-semibold mt-1.5" style={{ color: c.heading }}>{stat.label}</p>
+                <p className="text-xs mt-1" style={{ color: c.caption }}>{stat.detail}</p>
               </div>
             ))}
           </div>
 
-          {/* Testimonials — masonry style with rotation */}
+          {/* Instagram Dashboard Screenshot */}
+          <div className="mt-14 max-w-[900px] mx-auto">
+            <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/40">
+              <img src="/insta-dashboard.png" alt="Painel de métricas do Instagram @maestrosdaia — 99.682 seguidores, 4.6M visualizações, 1M contas alcançadas" className="w-full h-auto" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#09090B]/80 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: c.gold }}>Dados reais — Painel Instagram</p>
+                <p className="text-sm mt-1" style={{ color: c.body }}>Período: 19 de Mar – 17 de Abr 2026 · 96.5% orgânico (apenas 3.5% de anúncios)</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Viral Reel Proof */}
+          <div className="mt-14 max-w-[1000px] mx-auto">
+            <div className="flex justify-center mb-8">
+              <span className="inline-flex items-center gap-2 bg-[#F5A623]/[0.08] text-[#F5A623] border border-[#F5A623]/15 rounded-full px-4 py-2 text-sm font-medium">
+                <Play className="w-3.5 h-3.5 fill-current" />
+                1 Único Vídeo — Resultado Real
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* Reel screenshot with engagement */}
+              <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/40 bg-black">
+                <img src="/insta-viral-reel.jpg" alt="Reel viral @maestrosdaia com 56.9K curtidas, 1.724 comentários, 32.4K compartilhamentos" className="w-full h-auto" />
+              </div>
+
+              {/* Views + Breakdown */}
+              <div className="flex flex-col gap-4">
+                <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/40 bg-black">
+                  <img src="/insta-viral-views.jpg" alt="669 mil visualizações em um único Reel" className="w-full h-auto" />
+                </div>
+
+                <div className="bg-[#1C2333]/60 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-5 flex-1">
+                  <p className="font-display text-sm font-bold uppercase tracking-widest" style={{ color: c.gold }}>Métricas deste único vídeo</p>
+                  <div className="grid grid-cols-2 gap-3 mt-4">
+                    {[
+                      { icon: "👁", value: "669K", label: "Views" },
+                      { icon: "❤️", value: "56.9K", label: "Curtidas" },
+                      { icon: "💬", value: "1.724", label: "Comentários" },
+                      { icon: "📤", value: "32.4K", label: "Envios por DM" },
+                      { icon: "🔄", value: "1.826", label: "Compartilhamentos" },
+                      { icon: "📊", value: "8.5%", label: "Taxa de Engajamento" },
+                    ].map((m, i) => (
+                      <div key={i} className="flex items-center gap-2.5 py-1.5">
+                        <span className="text-lg">{m.icon}</span>
+                        <div>
+                          <span className="font-display font-bold text-base block" style={{ color: c.heading }}>{m.value}</span>
+                          <span className="text-xs" style={{ color: c.caption }}>{m.label}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interaction breakdown bar */}
+          <div className="mt-12 max-w-[800px] mx-auto bg-[#1C2333]/40 border border-white/[0.06] rounded-xl p-6">
+            <p className="text-center text-sm font-semibold mb-4" style={{ color: c.heading }}>Interações nos últimos 30 dias — @maestrosdaia</p>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {[
+                { label: "Curtidas", value: "199.7K", bar: "w-full" },
+                { label: "Compartilhamentos", value: "122.5K", bar: "w-[61%]" },
+                { label: "Salvamentos", value: "97.1K", bar: "w-[49%]" },
+                { label: "Comentários", value: "49.5K", bar: "w-[25%]" },
+                { label: "Reposts", value: "4.9K", bar: "w-[2%]" },
+              ].map((item, i) => (
+                <div key={i} className="text-center">
+                  <span className="font-display font-bold text-lg block" style={{ color: c.heading }}>{item.value}</span>
+                  <span className="text-xs" style={{ color: c.caption }}>{item.label}</span>
+                  <div className="h-1 bg-white/[0.06] rounded-full mt-2 overflow-hidden">
+                    <div className={`h-full bg-gradient-to-r from-[#E1306C] to-[#F5A623] rounded-full ${item.bar}`} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Testimonials — kept below proof */}
           <div className="mt-16 columns-1 md:columns-3 gap-4 max-w-[1000px] mx-auto">
             {[
               { name: "Bruno", quote: "Processo de uma semana, hoje em 4-6 horas com automação", rotate: "rotate-0" },
