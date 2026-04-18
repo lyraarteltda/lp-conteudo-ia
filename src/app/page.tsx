@@ -244,7 +244,7 @@ export default function LandingPage() {
         }`}
       >
         <span className="font-display font-bold text-lg text-[#F0F6FC] tracking-tight">Maestros da IA</span>
-        <CtaButton href="https://chat.maestrosdaia.com" variant="outline" className="!px-5 !py-2 !text-sm !rounded-lg">
+        <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" variant="outline" className="!px-5 !py-2 !text-sm !rounded-lg">
           Começar Agora
         </CtaButton>
       </header>
@@ -298,7 +298,7 @@ export default function LandingPage() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="flex flex-col sm:flex-row gap-4 mt-10 w-full sm:w-auto">
-            <CtaButton href="https://chat.maestrosdaia.com" size="lg">
+            <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" size="lg">
               QUERO AUTOMATIZAR MEU CONTEÚDO AGORA
               <ArrowRight className="w-5 h-5" />
             </CtaButton>
@@ -804,7 +804,7 @@ export default function LandingPage() {
                 <p className="line-through text-base mt-4 text-center" style={{ color: c.muted }}>R$2.026</p>
                 <p className="text-5xl font-display font-bold text-[#F5A623] mt-1 text-center">R$197</p>
                 <p className="text-sm mt-1 text-center" style={{ color: c.caption }}>ou 12x de R$19,70</p>
-                <CtaButton href="https://chat.maestrosdaia.com" size="lg" className="w-full mt-6 !justify-center">
+                <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" size="lg" className="w-full mt-6 !justify-center">
                   GARANTIR MINHA VAGA
                   <ArrowRight className="w-5 h-5" />
                 </CtaButton>
@@ -820,7 +820,7 @@ export default function LandingPage() {
           </div>
 
           <div className="text-center mt-8">
-            <CtaButton href="https://chat.maestrosdaia.com" variant="ghost" className="mx-auto">
+            <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" variant="ghost" className="mx-auto">
               <MessageCircle className="w-4 h-4" />
               Não sabe qual plano é pra você? Fale com nosso assistente →
             </CtaButton>
@@ -954,7 +954,7 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-8">
-            <CtaButton href="https://chat.maestrosdaia.com" size="lg" className="!shadow-[0_0_50px_rgba(245,166,35,0.25)]">
+            <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" size="lg" className="!shadow-[0_0_50px_rgba(245,166,35,0.25)]">
               GARANTIR MINHA VAGA AGORA
               <ArrowRight className="w-5 h-5" />
             </CtaButton>
@@ -1029,7 +1029,7 @@ export default function LandingPage() {
               <span className="text-sm font-semibold" style={{ color: c.heading }}>12x R$19,70</span>
               <motion.a
                 whileTap={{ scale: 0.97 }}
-                href="https://chat.maestrosdaia.com"
+                href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p"
                 onClick={() => trackLead()}
                 target="_blank"
                 rel="noopener noreferrer"
