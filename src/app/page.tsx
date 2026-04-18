@@ -755,7 +755,7 @@ export default function LandingPage() {
           </div>
 
           <p className="text-xl text-center max-w-[600px] mx-auto mt-10 leading-relaxed" style={{ color: c.body }}>
-            Você não vai pagar <span className="line-through" style={{ color: c.muted }}>R$2.026</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$997</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$497</span>. <span className="font-bold" style={{ color: c.heading }}>Hoje você leva tudo por apenas R$197 — ou 12x de R$19,70.</span>
+            Você não vai pagar <span className="line-through" style={{ color: c.muted }}>R$2.026</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$997</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$497</span>. <span className="font-bold" style={{ color: c.heading }}>Hoje você leva tudo por apenas R$197 — ou 12x de R$16,42.</span>
           </p>
         </div>
       </section>
@@ -803,7 +803,7 @@ export default function LandingPage() {
                 <p className="text-xs font-bold tracking-[0.15em] mt-2 text-center" style={{ color: c.caption }}>ACESSO COMPLETO</p>
                 <p className="line-through text-base mt-4 text-center" style={{ color: c.muted }}>R$2.026</p>
                 <p className="text-5xl font-display font-bold text-[#F5A623] mt-1 text-center">R$197</p>
-                <p className="text-sm mt-1 text-center" style={{ color: c.caption }}>ou 12x de R$19,70</p>
+                <p className="text-sm mt-1 text-center" style={{ color: c.caption }}>ou 12x de R$16,42</p>
                 <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" size="lg" className="w-full mt-6 !justify-center">
                   GARANTIR MINHA VAGA
                   <ArrowRight className="w-5 h-5" />
@@ -1026,7 +1026,7 @@ export default function LandingPage() {
               <X className="w-3.5 h-3.5" />
             </button>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold" style={{ color: c.heading }}>12x R$19,70</span>
+              <span className="text-sm font-semibold" style={{ color: c.heading }}>12x R$16,42</span>
               <motion.a
                 whileTap={{ scale: 0.97 }}
                 href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p"
