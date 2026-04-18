@@ -11,11 +11,9 @@ import {
   Users,
   AlertTriangle,
   ShieldCheck,
-  MessageCircle,
   CheckCircle2,
   Lock,
   Zap,
-  Phone,
   X,
   Globe,
   FlaskConical,
@@ -182,8 +180,6 @@ const pillarIcons = [Globe, FlaskConical, Video, Rocket];
 export default function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLElement>(null);
-  const [showMobileCta, setShowMobileCta] = useState(false);
-  const [dismissedMobileCta, setDismissedMobileCta] = useState(false);
   const [navBlur, setNavBlur] = useState(false);
   const { scrollYProgress } = useScroll();
 
@@ -204,9 +200,6 @@ export default function LandingPage() {
   useEffect(() => {
     const handleScroll = () => {
       setNavBlur(window.scrollY > 50);
-      if (heroRef.current) {
-        setShowMobileCta(heroRef.current.getBoundingClientRect().bottom < 0);
-      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -244,9 +237,6 @@ export default function LandingPage() {
         }`}
       >
         <span className="font-display font-bold text-lg text-[#F0F6FC] tracking-tight">Maestros da IA</span>
-        <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" variant="outline" className="!px-5 !py-2 !text-sm !rounded-lg">
-          Começar Agora
-        </CtaButton>
       </header>
 
       {/* ═══ HERO ═══ */}
@@ -297,16 +287,6 @@ export default function LandingPage() {
             ))}
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="flex flex-col sm:flex-row gap-4 mt-10 w-full sm:w-auto">
-            <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" size="lg">
-              QUERO AUTOMATIZAR MEU CONTEÚDO AGORA
-              <ArrowRight className="w-5 h-5" />
-            </CtaButton>
-            <CtaButton href="https://wa.me/5511995631610" variant="outline" className="!border-white/10">
-              <Phone className="w-4 h-4" />
-              Falar no WhatsApp
-            </CtaButton>
-          </motion.div>
 
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="text-sm mt-4" style={{ color: c.caption }}>
             Acesso imediato. Sem risco. Garantia incondicional.
@@ -819,12 +799,6 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="text-center mt-8">
-            <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" variant="ghost" className="mx-auto">
-              <MessageCircle className="w-4 h-4" />
-              Não sabe qual plano é pra você? Fale com nosso assistente →
-            </CtaButton>
-          </div>
         </div>
       </section>
 
@@ -999,48 +973,10 @@ export default function LandingPage() {
             <a href="#" className="text-sm hover:underline underline-offset-4" style={{ color: c.caption }}>Política de Privacidade</a>
           </div>
           <p className="text-xs text-center mt-4" style={{ color: c.caption }}>© 2026 Maestria Academy Ltda / Lyra Arte LTDA</p>
-          <a href="https://wa.me/5511995631610" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 text-sm hover:text-[#F5A623] mt-4 transition-colors" style={{ color: c.caption }}>
-            <Phone className="w-4 h-4" />
-            WhatsApp: +55 11 99563-1610
-          </a>
           <div className="pb-8" />
         </div>
       </footer>
 
-      {/* Sticky Mobile CTA */}
-      <AnimatePresence>
-        {showMobileCta && !dismissedMobileCta && (
-          <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-[#09090B]/80 backdrop-blur-xl border-t border-[#F5A623]/15 px-4 py-3 md:hidden"
-          >
-            <button
-              onClick={() => setDismissedMobileCta(true)}
-              className="absolute -top-8 right-3 w-6 h-6 rounded-full bg-[#09090B]/80 backdrop-blur-sm border border-white/[0.08] flex items-center justify-center transition-colors"
-              style={{ color: c.caption }}
-              aria-label="Fechar"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold" style={{ color: c.heading }}>12x R$16,42</span>
-              <motion.a
-                whileTap={{ scale: 0.97 }}
-                href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p"
-                onClick={() => trackLead()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative overflow-hidden bg-gradient-to-r from-[#F5A623] to-[#E8951A] text-black text-sm px-6 py-2.5 rounded-lg font-bold shadow-[0_0_20px_rgba(245,166,35,0.25)]"
-              >
-                Começar Agora
-              </motion.a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </main>
   );
 }
