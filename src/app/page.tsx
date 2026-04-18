@@ -197,16 +197,17 @@ export default function LandingPage() {
   const [navBlur, setNavBlur] = useState(false);
   const { scrollYProgress } = useScroll();
 
-  /* Lenis smooth scroll */
+  /* Lenis smooth scroll — connected to GSAP ticker + ScrollTrigger */
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
-    function raf(time: number) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    return () => { lenis.destroy(); gsap.ticker.remove(lenis.raf); };
   }, []);
 
   /* Scroll listener for nav + mobile CTA */
@@ -221,41 +222,8 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* GSAP scroll-triggered animations */
+  /* GSAP — only counter animations (reveal/stagger handled by Framer Motion whileInView) */
   useGSAP(() => {
-    gsap.utils.toArray<HTMLElement>(".gsap-reveal").forEach((el) => {
-      gsap.from(el, {
-        y: 40,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 85%" },
-      });
-    });
-
-    gsap.utils.toArray<HTMLElement>(".gsap-reveal-left").forEach((el) => {
-      gsap.from(el, {
-        x: -30,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.out",
-        scrollTrigger: { trigger: el, start: "top 85%" },
-      });
-    });
-
-    gsap.utils.toArray<HTMLElement>(".gsap-stagger-parent").forEach((parent) => {
-      const children = parent.querySelectorAll(".gsap-stagger-child");
-      gsap.from(children, {
-        y: 30,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.out",
-        stagger: 0.12,
-        scrollTrigger: { trigger: parent, start: "top 80%" },
-      });
-    });
-
-    // Counter animations
     gsap.utils.toArray<HTMLElement>(".gsap-counter").forEach((el) => {
       const end = parseFloat(el.dataset.end || "0");
       const obj = { val: 0 };
@@ -367,22 +335,22 @@ export default function LandingPage() {
       <section id="pain" className="relative py-24 md:py-32 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-50" />
         <div className="relative max-w-[1200px] mx-auto">
-          <div className="gsap-reveal flex justify-center mb-6">
+          <div className="flex justify-center mb-6">
             <span className="inline-flex items-center gap-2 bg-red-500/[0.08] text-red-400 border border-red-500/15 rounded-full px-4 py-2 text-sm font-medium">
               <AlertTriangle className="w-4 h-4" />
               Atenção
             </span>
           </div>
 
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center max-w-[800px] mx-auto" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center max-w-[800px] mx-auto" style={{ color: c.heading }}>
             A Verdade Que Ninguém Te Conta Sobre Criar Conteúdo em 2026
           </h2>
 
-          <p className="gsap-reveal text-lg text-center mt-5 mb-10" style={{ color: c.body }}>
+          <p className="text-lg text-center mt-5 mb-10" style={{ color: c.body }}>
             Você reconhece algum desses sintomas?
           </p>
 
-          <div className="gsap-stagger-parent max-w-[700px] mx-auto">
+          <div className="max-w-[700px] mx-auto">
             {[
               { bold: "O algoritmo te engole", desc: "Posta todo dia mas os números não saem do lugar" },
               { bold: "Sem ideias", desc: "Fica olhando a tela em branco sem saber o que postar" },
@@ -391,7 +359,7 @@ export default function LandingPage() {
               { bold: "Resultados medíocres", desc: "Posta, posta, posta... e os views morrem em 200" },
               { bold: "Concorrentes viralizando", desc: "Enquanto você luta por um like, seus concorrentes estão em todos os lugares" },
             ].map((item, i) => (
-              <div key={i} className="gsap-stagger-child flex items-start gap-3 bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-2.5 hover:border-red-500/15 transition-all duration-300 hover:-translate-y-0.5">
+              <div key={i} className="flex items-start gap-3 bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-2.5 hover:border-red-500/15 transition-all duration-300 hover:-translate-y-0.5">
                 <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
                 <p style={{ color: c.body }}>
                   <span className="font-semibold" style={{ color: c.heading }}>{item.bold}</span> — {item.desc}
@@ -400,11 +368,11 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <p className="gsap-reveal text-lg text-center max-w-[700px] mx-auto mt-10 leading-relaxed" style={{ color: c.body }}>
+          <p className="text-lg text-center max-w-[700px] mx-auto mt-10 leading-relaxed" style={{ color: c.body }}>
             Se você se identificou com pelo menos 2 desses pontos, a culpa <span className="font-bold" style={{ color: c.heading }}>não é sua</span>. O jogo mudou. E quem não entendeu isso ainda está jogando com as regras de 2023.
           </p>
 
-          <div className="gsap-reveal bg-gradient-to-r from-[#F5A623]/[0.06] to-transparent border border-[#F5A623]/15 rounded-xl p-8 max-w-[700px] mx-auto mt-10 text-center">
+          <div className="bg-gradient-to-r from-[#F5A623]/[0.06] to-transparent border border-[#F5A623]/15 rounded-xl p-8 max-w-[700px] mx-auto mt-10 text-center">
             <div className="font-display text-5xl md:text-7xl font-bold text-[#F5A623]">
               <span className="gsap-counter" data-end="47" data-suffix="x">47x</span>
             </div>
@@ -423,20 +391,20 @@ export default function LandingPage() {
           <div className="absolute w-[400px] h-[400px] rounded-full bg-[#F5A623]/[0.03] blur-[100px] -bottom-20 -left-20" />
         </div>
         <div className="relative max-w-[1200px] mx-auto">
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
             Apresentamos: O{" "}
             <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">Sistema Completo</span>{" "}
             de Criação de Conteúdo com IA
           </h2>
 
-          <p className="gsap-reveal text-lg text-center max-w-[600px] mx-auto mt-4" style={{ color: c.body }}>
+          <p className="text-lg text-center max-w-[600px] mx-auto mt-4" style={{ color: c.body }}>
             <span className="font-semibold" style={{ color: c.heading }}>14</span> aulas práticas.{" "}
             <span className="font-semibold" style={{ color: c.heading }}>4</span> pilares.{" "}
             <span className="font-semibold" style={{ color: c.heading }}>1</span> resultado: seu conteúdo no piloto automático.
           </p>
 
           {/* Bento Grid Layout */}
-          <div className="gsap-stagger-parent grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[1000px] mx-auto mt-14">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[1000px] mx-auto mt-14">
             {[
               { title: "Inteligência Global", desc: "Nosso agente de IA monitora os 100+ melhores criadores do seu nicho em 10+ países (Japão, Alemanha, EUA, Índia...) e identifica o que está viralizando ANTES de chegar ao Brasil. Você nunca mais precisa 'ter ideias' — a IA traz os dados.", span: "md:col-span-2 md:row-span-2" },
               { title: "Engenharia Reversa", desc: "A IA filtra apenas os vídeos com 50K+ views, 1K+ comentários ou 10K+ likes. Depois transcreve, analisa hooks, formatos e temas — e te entrega um relatório completo do que funciona. É como ter um time de pesquisa de R$15K/mês trabalhando de graça.", span: "" },
@@ -450,7 +418,7 @@ export default function LandingPage() {
                   key={i}
                   whileHover={{ y: -3, borderColor: "rgba(245,166,35,0.25)" }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className={`gsap-stagger-child group relative bg-[${c.surface3}]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl transition-all duration-300 hover:shadow-[0_8px_40px_rgba(245,166,35,0.06)] ${pillar.span} ${isLarge ? "p-8 md:p-10" : i === 3 ? "p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6" : "p-6"}`}
+                  className={`group relative bg-[${c.surface3}]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl transition-all duration-300 hover:shadow-[0_8px_40px_rgba(245,166,35,0.06)] ${pillar.span} ${isLarge ? "p-8 md:p-10" : i === 3 ? "p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6" : "p-6"}`}
                 >
                   <div className={`${isLarge ? "w-16 h-16" : "w-12 h-12"} rounded-lg bg-gradient-to-br from-[#F5A623]/15 to-[#F5A623]/5 border border-[#F5A623]/15 flex items-center justify-center flex-shrink-0`}>
                     <Icon className={`${isLarge ? "w-8 h-8" : "w-6 h-6"} text-[#F5A623]`} />
@@ -464,7 +432,7 @@ export default function LandingPage() {
             })}
           </div>
 
-          <div className="gsap-reveal bg-[${c.surface3}]/40 border border-white/[0.06] rounded-xl p-6 md:p-8 max-w-[1000px] mx-auto mt-8">
+          <div className="bg-[${c.surface3}]/40 border border-white/[0.06] rounded-xl p-6 md:p-8 max-w-[1000px] mx-auto mt-8">
             <p className="text-center leading-relaxed" style={{ color: c.body }}>
               Juntos, esses 4 pilares eliminam os 3 maiores custos de criação de conteúdo:{" "}
               <span className="font-semibold" style={{ color: c.heading }}>tempo</span> (de 20h para 2h/semana),{" "}
@@ -487,15 +455,15 @@ export default function LandingPage() {
       <section id="curriculum" className="relative py-24 md:py-32 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
         <div className="relative max-w-[1200px] mx-auto">
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
             Exatamente O Que Você Vai Aprender{" "}
             <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">(e Implementar)</span>
           </h2>
-          <p className="gsap-reveal text-lg text-center max-w-[600px] mx-auto mt-4" style={{ color: c.body }}>
+          <p className="text-lg text-center max-w-[600px] mx-auto mt-4" style={{ color: c.body }}>
             Não são aulas teóricas. Cada aula termina com uma <span className="font-semibold" style={{ color: c.heading }}>automação funcionando</span>.
           </p>
 
-          <div className="gsap-reveal mt-12">
+          <div className="mt-12">
             <Accordion
               defaultOpen={0}
               items={[
@@ -631,7 +599,7 @@ export default function LandingPage() {
             />
           </div>
 
-          <div className="gsap-reveal flex flex-wrap justify-center gap-3 mt-10">
+          <div className="flex flex-wrap justify-center gap-3 mt-10">
             {["14 Aulas", "4+ Horas", "Automações Prontas", "1 Ano de Acesso"].map((stat) => (
               <span key={stat} className="bg-white/[0.04] border border-white/[0.06] text-sm px-4 py-2 rounded-lg" style={{ color: c.heading }}>{stat}</span>
             ))}
@@ -646,18 +614,18 @@ export default function LandingPage() {
           <div className="absolute w-[600px] h-[600px] rounded-full bg-blue-500/[0.04] blur-[130px] top-1/4 -left-40" />
         </div>
         <div className="relative max-w-[1200px] mx-auto">
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
             Resultados <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">Reais</span> de Quem Já Implementou
           </h2>
 
           {/* Stats */}
-          <div className="gsap-stagger-parent grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[900px] mx-auto mt-14">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[900px] mx-auto mt-14">
             {[
               { end: 20, suffix: "K", label: "seguidores", desc: "no TikTok + Instagram em 30 dias" },
               { end: 2, suffix: "h", label: "por semana", desc: "(antes eram 20+ horas)" },
               { end: 200, suffix: "%", label: "crescimento", desc: "por semana comprovado" },
             ].map((stat, i) => (
-              <div key={i} className="gsap-stagger-child bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl p-8 text-center hover:border-[#F5A623]/20 transition-all duration-300">
+              <div key={i} className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl p-8 text-center hover:border-[#F5A623]/20 transition-all duration-300">
                 <div className="font-display text-4xl md:text-5xl font-bold text-[#F5A623]">
                   <span className="gsap-counter" data-end={stat.end} data-suffix={stat.suffix}>{stat.end}{stat.suffix}</span>
                 </div>
@@ -668,7 +636,7 @@ export default function LandingPage() {
           </div>
 
           {/* Testimonials — masonry style with rotation */}
-          <div className="gsap-stagger-parent mt-16 columns-1 md:columns-3 gap-4 max-w-[1000px] mx-auto">
+          <div className="mt-16 columns-1 md:columns-3 gap-4 max-w-[1000px] mx-auto">
             {[
               { name: "Bruno", quote: "Processo de uma semana, hoje em 4-6 horas com automação", rotate: "rotate-0" },
               { name: "André", quote: "Pouco tempo de curso, já vendi projetos com ticket médio considerável", rotate: "md:-rotate-1" },
@@ -676,7 +644,7 @@ export default function LandingPage() {
               { name: "Ricardo", quote: "Metade do que achava impossível, hoje faço em casa e no trabalho", rotate: "md:rotate-0" },
               { name: "Rodrigo Eve", quote: "Se eu consegui, você vai conseguir também", rotate: "md:-rotate-1" },
             ].map((t, i) => (
-              <div key={i} className={`gsap-stagger-child break-inside-avoid mb-4 ${t.rotate}`}>
+              <div key={i} className={`break-inside-avoid mb-4 ${t.rotate}`}>
                 <div className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] hover:border-[#F5A623]/15 rounded-xl p-5 transition-all duration-300 hover:-translate-y-1">
                   <div className="flex items-center gap-3 mb-4">
                     <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${avatarGradients[i]} flex items-center justify-center ring-2 ring-white/[0.08] ring-offset-2 ring-offset-[#1C2333]`}>
@@ -702,11 +670,11 @@ export default function LandingPage() {
       <SectionDivider />
       <section id="value" className="relative py-20 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="relative max-w-[1200px] mx-auto">
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
             Quanto Custaria Montar Tudo Isso <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">Sozinho</span>?
           </h2>
 
-          <div className="gsap-stagger-parent max-w-[700px] mx-auto mt-12">
+          <div className="max-w-[700px] mx-auto mt-12">
             {[
               { item: "14 aulas práticas com automações prontas", price: "R$4.000" },
               { item: "Agente espião de concorrentes (pesquisa 100+ contas)", price: "R$3.000/mês" },
@@ -717,7 +685,7 @@ export default function LandingPage() {
               { item: "Agente copywriter com RAG (livros de marketing)", price: "R$3.500/mês" },
               { item: "Templates de automação copy-paste-activate", price: "R$2.000" },
             ].map((row, i) => (
-              <div key={i} className={`gsap-stagger-child flex justify-between items-center py-3.5 px-4 border-b border-white/[0.04] rounded-lg ${i % 2 === 0 ? "bg-white/[0.02]" : ""}`}>
+              <div key={i} className={`flex justify-between items-center py-3.5 px-4 border-b border-white/[0.04] rounded-lg ${i % 2 === 0 ? "bg-white/[0.02]" : ""}`}>
                 <span className="flex items-center gap-3" style={{ color: c.heading }}>
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                   <span className="text-sm">{row.item}</span>
@@ -725,13 +693,13 @@ export default function LandingPage() {
                 <span className="font-semibold tabular-nums whitespace-nowrap ml-4 text-sm" style={{ color: c.caption }}>{row.price}</span>
               </div>
             ))}
-            <div className="gsap-reveal bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg mt-3 py-4 px-4 flex justify-between items-center">
+            <div className="bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg mt-3 py-4 px-4 flex justify-between items-center">
               <span className="font-bold text-sm" style={{ color: c.heading }}>VALOR TOTAL ANUAL</span>
               <span className="font-display font-bold text-xl text-[#F5A623]">R$142.400</span>
             </div>
           </div>
 
-          <p className="gsap-reveal text-xl text-center max-w-[600px] mx-auto mt-10 leading-relaxed" style={{ color: c.body }}>
+          <p className="text-xl text-center max-w-[600px] mx-auto mt-10 leading-relaxed" style={{ color: c.body }}>
             Você não vai pagar <span className="line-through" style={{ color: c.muted }}>R$142K</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$50K</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$10K</span>. <span className="font-bold" style={{ color: c.heading }}>Este módulo completo está incluído na Formação Maestros da IA.</span>
           </p>
         </div>
@@ -742,16 +710,16 @@ export default function LandingPage() {
       <section id="pricing" className="relative py-28 md:py-40 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F5A623]/[0.02] to-transparent pointer-events-none" />
         <div className="relative max-w-[1200px] mx-auto">
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
             Acesse o Módulo Completo Dentro da{" "}
             <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">Formação Maestros da IA</span>
           </h2>
 
-          <p className="gsap-reveal text-lg text-center max-w-[600px] mx-auto mt-4" style={{ color: c.body }}>
+          <p className="text-lg text-center max-w-[600px] mx-auto mt-4" style={{ color: c.body }}>
             14 aulas de criação de conteúdo com IA + TUDO que a formação oferece:
           </p>
 
-          <div className="gsap-stagger-parent max-w-[600px] mx-auto mt-8">
+          <div className="max-w-[600px] mx-auto mt-8">
             {[
               "Este módulo completo (14 aulas, 4+ horas)",
               "+ 9 outros módulos (75 implementações progressivas)",
@@ -763,7 +731,7 @@ export default function LandingPage() {
               "Comunidade exclusiva de networking",
               "1 ano de acesso + atualizações mensais",
             ].map((item, i) => (
-              <div key={i} className="gsap-stagger-child flex items-start gap-3 py-2">
+              <div key={i} className="flex items-start gap-3 py-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-1" />
                 <span className="text-sm" style={{ color: c.body }}>{item}</span>
               </div>
@@ -771,9 +739,9 @@ export default function LandingPage() {
           </div>
 
           {/* Spotlight Pricing Cards */}
-          <div className="gsap-stagger-parent grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-14 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-14 items-start">
             {/* R$3K — secondary */}
-            <div className="gsap-stagger-child bg-[#1C2333]/50 backdrop-blur-sm border border-white/[0.08] rounded-xl p-7 md:mt-8 opacity-90">
+            <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-white/[0.08] rounded-xl p-7 md:mt-8 opacity-90">
               <span className="bg-white/[0.06] text-xs font-bold px-3 py-1 rounded-full" style={{ color: c.caption }}>FORMAÇÃO COMPLETA</span>
               <p className="text-xs font-bold tracking-[0.15em] mt-4" style={{ color: c.caption }}>TUDO INCLUSO</p>
               <p className="line-through text-base mt-3" style={{ color: c.muted }}>R$7.000</p>
@@ -792,7 +760,7 @@ export default function LandingPage() {
             </div>
 
             {/* R$997 — SPOTLIGHT */}
-            <div className="gsap-stagger-child relative order-first md:order-last">
+            <div className="relative order-first md:order-last">
               <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-[#F5A623]/30 via-[#F5A623]/10 to-transparent blur-sm pointer-events-none" />
               <div className="relative bg-[#1C2333]/80 backdrop-blur-md border-2 border-[#F5A623]/30 rounded-2xl p-8 animate-pulse-glow">
                 <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#F5A623] to-[#E8951A] text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-[0_4px_16px_rgba(245,166,35,0.25)]">
@@ -818,7 +786,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="gsap-reveal text-center mt-8">
+          <div className="text-center mt-8">
             <CtaButton href="https://chat.maestrosdaia.com" variant="ghost" className="mx-auto">
               <MessageCircle className="w-4 h-4" />
               Não sabe qual plano é pra você? Fale com nosso assistente →
@@ -831,18 +799,18 @@ export default function LandingPage() {
       <SectionDivider />
       <section id="guarantee" className="relative py-20 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="relative max-w-[1200px] mx-auto">
-          <div className="gsap-reveal flex justify-center">
+          <div className="flex justify-center">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#F5A623]/15 to-[#F5A623]/5 border border-[#F5A623]/15 flex items-center justify-center">
               <ShieldCheck className="w-12 h-12 text-[#F5A623]" />
             </div>
           </div>
 
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-center mt-5" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-center mt-5" style={{ color: c.heading }}>
             O Risco É <span className="text-[#F5A623]">100% Nosso</span>
           </h2>
 
-          <div className="gsap-stagger-parent grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[900px] mx-auto mt-10">
-            <div className="gsap-stagger-child bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-7 order-last md:order-first hover:border-[#F5A623]/20 transition-colors duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[900px] mx-auto mt-10">
+            <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-7 order-last md:order-first hover:border-[#F5A623]/20 transition-colors duration-300">
               <span className="text-xs font-medium" style={{ color: c.caption }}>🛡️ Tier R$3K</span>
               <h3 className="font-display text-lg font-bold mt-2" style={{ color: c.heading }}>
                 Garantia <span className="text-[#F5A623]">7 Dias</span>
@@ -851,7 +819,7 @@ export default function LandingPage() {
                 Acesse TUDO. Se em 7 dias você não sentir que isso vale pelo menos 10x o investimento, devolvemos <span className="font-semibold text-[#F5A623]">100% do seu dinheiro</span>. Sem perguntas. Sem burocracia.
               </p>
             </div>
-            <div className="gsap-stagger-child bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-7 hover:border-[#F5A623]/20 transition-colors duration-300">
+            <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-7 hover:border-[#F5A623]/20 transition-colors duration-300">
               <span className="text-xs font-medium" style={{ color: c.caption }}>🛡️ Tier R$997</span>
               <h3 className="font-display text-lg font-bold mt-2" style={{ color: c.heading }}>
                 Garantia <span className="text-[#F5A623]">90 Dias</span> de Execução
@@ -868,12 +836,12 @@ export default function LandingPage() {
       <SectionDivider />
       <section id="founders" className="relative py-28 md:py-36 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
         <div className="relative max-w-[1200px] mx-auto">
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
             Quem São os <span className="text-[#F5A623]">Maestros</span> Por Trás do Sistema
           </h2>
 
-          <div className="gsap-stagger-parent grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-12">
-            <div className="gsap-stagger-child bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl overflow-hidden hover:border-[#F5A623]/15 transition-colors duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-12">
+            <div className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl overflow-hidden hover:border-[#F5A623]/15 transition-colors duration-300">
               <div className="h-1.5 bg-gradient-to-r from-[#F5A623] to-[#FF6B35]" />
               <div className="p-7">
                 <div className="flex items-center gap-4">
@@ -891,7 +859,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="gsap-stagger-child bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl overflow-hidden hover:border-[#6366F1]/15 transition-colors duration-300">
+            <div className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl overflow-hidden hover:border-[#6366F1]/15 transition-colors duration-300">
               <div className="h-1.5 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6]" />
               <div className="p-7">
                 <div className="flex items-center gap-4">
@@ -910,7 +878,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="gsap-reveal border-l-2 border-[#F5A623]/30 rounded-r-xl p-7 max-w-[800px] mx-auto mt-12 relative" style={{ background: `${c.surface3}80` }}>
+          <div className="border-l-2 border-[#F5A623]/30 rounded-r-xl p-7 max-w-[800px] mx-auto mt-12 relative" style={{ background: `${c.surface3}80` }}>
             <span className="absolute -top-1 left-4 text-[#F5A623] text-5xl opacity-15 leading-none font-serif">&quot;</span>
             <p className="text-base leading-relaxed italic" style={{ color: c.body }}>
               Nenhum dos dois sabia programar. Gastaram <span className="font-semibold not-italic" style={{ color: c.heading }}>R$8K em consultoria de IA</span> e receberam um PDF genérico. Gastaram <span className="font-semibold not-italic" style={{ color: c.heading }}>R$12K em ferramentas</span> e nunca integraram. Contrataram um <span className="font-semibold not-italic" style={{ color: c.heading }}>dev freelancer</span> e o chatbot respondeu &quot;Não entendi&quot; 70% das vezes. Até que descobriram: você não precisa PROGRAMAR IA — precisa <span className="text-[#F5A623] font-bold not-italic">ORQUESTRAR IA</span>. Como um maestro rege uma orquestra.
@@ -923,10 +891,10 @@ export default function LandingPage() {
       <SectionDivider />
       <section id="faq" className="relative py-20 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="relative max-w-[1200px] mx-auto">
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-center" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-center" style={{ color: c.heading }}>
             Perguntas Frequentes
           </h2>
-          <div className="gsap-reveal mt-10">
+          <div className="mt-10">
             <Accordion
               items={[
                 { trigger: <span>Preciso saber programar?</span>, content: <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: c.body }}>Zero. Todas as automações são montadas com ferramentas visuais (Make, N8N) com nossos templates prontos. Se você sabe arrastar e soltar, sabe usar.</div> },
@@ -947,33 +915,33 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F5A623]/[0.03] to-transparent pointer-events-none" />
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
         <div className="relative max-w-[700px] mx-auto text-center">
-          <h2 className="gsap-reveal font-display text-[clamp(1.5rem,4vw,3.5rem)] font-bold tracking-[-0.02em]" style={{ color: c.heading }}>
+          <h2 className="font-display text-[clamp(1.5rem,4vw,3.5rem)] font-bold tracking-[-0.02em]" style={{ color: c.heading }}>
             Seus Concorrentes Já Estão Automatizando.{" "}
             <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">E Você?</span>
           </h2>
 
-          <p className="gsap-reveal text-lg mt-6 max-w-[600px] mx-auto leading-relaxed" style={{ color: c.body }}>
+          <p className="text-lg mt-6 max-w-[600px] mx-auto leading-relaxed" style={{ color: c.body }}>
             Cada dia sem esse sistema é mais um dia perdendo para quem já usa IA para criar conteúdo <span className="font-semibold" style={{ color: c.heading }}>47x mais rápido</span>.
           </p>
 
-          <div className="gsap-reveal bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg px-6 py-4 max-w-[500px] mx-auto mt-8">
+          <div className="bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg px-6 py-4 max-w-[500px] mx-auto mt-8">
             <p className="text-[#F5A623] font-medium text-sm">
               ⚠️ Vagas com preço de lançamento limitadas. O valor sobe ao atingir 60 membros fundadores.
             </p>
           </div>
 
-          <div className="gsap-reveal mt-8">
+          <div className="mt-8">
             <CtaButton href="https://chat.maestrosdaia.com" size="lg" className="!shadow-[0_0_50px_rgba(245,166,35,0.25)]">
               GARANTIR MINHA VAGA AGORA
               <ArrowRight className="w-5 h-5" />
             </CtaButton>
           </div>
 
-          <p className="gsap-reveal text-sm mt-4" style={{ color: c.caption }}>
+          <p className="text-sm mt-4" style={{ color: c.caption }}>
             Pagamento seguro | Garantia de reembolso | Acesso imediato
           </p>
 
-          <div className="gsap-reveal flex justify-center gap-8 mt-6">
+          <div className="flex justify-center gap-8 mt-6">
             {[
               { icon: Lock, label: "Seguro" },
               { icon: CheckCircle2, label: "Garantia" },
