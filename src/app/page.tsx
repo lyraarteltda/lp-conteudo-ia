@@ -11,7 +11,6 @@ import {
   Users,
   AlertTriangle,
   ShieldCheck,
-  Star,
   MessageCircle,
   CheckCircle2,
   Lock,
@@ -175,15 +174,6 @@ function Accordion({
     </div>
   );
 }
-
-/* ─── Avatar gradients for testimonials ─── */
-const avatarGradients = [
-  "from-[#F5A623] to-[#FF6B35]",
-  "from-[#6366F1] to-[#8B5CF6]",
-  "from-[#10B981] to-[#34D399]",
-  "from-[#EC4899] to-[#F43F5E]",
-  "from-[#3B82F6] to-[#60A5FA]",
-];
 
 /* ─── Pillar icons ─── */
 const pillarIcons = [Globe, FlaskConical, Video, Rocket];
@@ -728,34 +718,6 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Testimonials — kept below proof */}
-          <div className="mt-16 columns-1 md:columns-3 gap-4 max-w-[1000px] mx-auto">
-            {[
-              { name: "Bruno", quote: "Processo de uma semana, hoje em 4-6 horas com automação", rotate: "rotate-0" },
-              { name: "André", quote: "Pouco tempo de curso, já vendi projetos com ticket médio considerável", rotate: "md:-rotate-1" },
-              { name: "Alice", quote: "Muito mais do que esperava. IA como aliada estratégica", rotate: "md:rotate-1" },
-              { name: "Ricardo", quote: "Metade do que achava impossível, hoje faço em casa e no trabalho", rotate: "md:rotate-0" },
-              { name: "Rodrigo Eve", quote: "Se eu consegui, você vai conseguir também", rotate: "md:-rotate-1" },
-            ].map((t, i) => (
-              <div key={i} className={`break-inside-avoid mb-4 ${t.rotate}`}>
-                <div className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] hover:border-[#F5A623]/15 rounded-xl p-5 transition-all duration-300 hover:-translate-y-1">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${avatarGradients[i]} flex items-center justify-center ring-2 ring-white/[0.08] ring-offset-2 ring-offset-[#1C2333]`}>
-                      <span className="font-bold text-white text-sm">{t.name.split(" ").map(n => n[0]).join("")}</span>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-sm block" style={{ color: c.heading }}>{t.name}</span>
-                      <span className="text-xs" style={{ color: c.caption }}>Aluno Maestros da IA</span>
-                    </div>
-                  </div>
-                  <p className="text-sm italic leading-relaxed" style={{ color: c.body }}>&quot;{t.quote}&quot;</p>
-                  <div className="flex gap-0.5 mt-3">
-                    {[1,2,3,4,5].map((s) => (<Star key={s} className="w-3.5 h-3.5 text-[#F5A623] fill-[#F5A623]" />))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -769,14 +731,14 @@ export default function LandingPage() {
 
           <div className="max-w-[700px] mx-auto mt-12">
             {[
-              { item: "14 aulas práticas com automações prontas", price: "R$4.000" },
-              { item: "Agente espião de concorrentes (pesquisa 100+ contas)", price: "R$3.000/mês" },
-              { item: "Agente roteirista com IA (roteiros ilimitados)", price: "R$2.500/mês" },
-              { item: "Sistema de avatar/clone de IA configurado", price: "R$2.000" },
-              { item: "Automação de carrosséis com geração por IA", price: "R$1.500/mês" },
-              { item: "Postagem automática multi-plataforma", price: "R$1.200/mês" },
-              { item: "Agente copywriter com RAG (livros de marketing)", price: "R$3.500/mês" },
-              { item: "Templates de automação copy-paste-activate", price: "R$2.000" },
+              { item: "14 aulas práticas com automações prontas", price: "R$497" },
+              { item: "Agente espião de concorrentes (pesquisa 100+ contas)", price: "R$297" },
+              { item: "Agente roteirista com IA (roteiros ilimitados)", price: "R$247" },
+              { item: "Sistema de avatar/clone de IA configurado", price: "R$197" },
+              { item: "Automação de carrosséis com geração por IA", price: "R$197" },
+              { item: "Postagem automática multi-plataforma", price: "R$147" },
+              { item: "Agente copywriter com RAG (livros de marketing)", price: "R$297" },
+              { item: "Templates de automação copy-paste-activate", price: "R$147" },
             ].map((row, i) => (
               <div key={i} className={`flex justify-between items-center py-3.5 px-4 border-b border-white/[0.04] rounded-lg ${i % 2 === 0 ? "bg-white/[0.02]" : ""}`}>
                 <span className="flex items-center gap-3" style={{ color: c.heading }}>
@@ -787,13 +749,13 @@ export default function LandingPage() {
               </div>
             ))}
             <div className="bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg mt-3 py-4 px-4 flex justify-between items-center">
-              <span className="font-bold text-sm" style={{ color: c.heading }}>VALOR TOTAL ANUAL</span>
-              <span className="font-display font-bold text-xl text-[#F5A623]">R$142.400</span>
+              <span className="font-bold text-sm" style={{ color: c.heading }}>VALOR TOTAL</span>
+              <span className="font-display font-bold text-xl text-[#F5A623]">R$2.026</span>
             </div>
           </div>
 
           <p className="text-xl text-center max-w-[600px] mx-auto mt-10 leading-relaxed" style={{ color: c.body }}>
-            Você não vai pagar <span className="line-through" style={{ color: c.muted }}>R$142K</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$50K</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$10K</span>. <span className="font-bold" style={{ color: c.heading }}>Este módulo completo está incluído na Formação Maestros da IA.</span>
+            Você não vai pagar <span className="line-through" style={{ color: c.muted }}>R$2.026</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$997</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$497</span>. <span className="font-bold" style={{ color: c.heading }}>Hoje você leva tudo por apenas R$197 — ou 12x de R$19,70.</span>
           </p>
         </div>
       </section>
@@ -804,25 +766,24 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F5A623]/[0.02] to-transparent pointer-events-none" />
         <div className="relative max-w-[1200px] mx-auto">
           <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
-            Acesse o Módulo Completo Dentro da{" "}
-            <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">Formação Maestros da IA</span>
+            Acesse o Módulo Completo de{" "}
+            <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">Criação de Conteúdo com IA</span>
           </h2>
 
           <p className="text-lg text-center max-w-[600px] mx-auto mt-4" style={{ color: c.body }}>
-            14 aulas de criação de conteúdo com IA + TUDO que a formação oferece:
+            14 aulas de criação de conteúdo com IA. Tudo o que você precisa para automatizar:
           </p>
 
           <div className="max-w-[600px] mx-auto mt-8">
             {[
-              "Este módulo completo (14 aulas, 4+ horas)",
-              "+ 9 outros módulos (75 implementações progressivas)",
-              "11+ agentes autônomos de IA prontos",
-              "Arsenal IA: 100+ ferramentas, prompts e códigos testados",
-              "Arquivos Confidenciais (números reais do sistema de R$2.5M)",
-              "Templates copy-paste-activate",
-              "12 mentorias ao vivo com os fundadores (tier R$3K)",
-              "Comunidade exclusiva de networking",
-              "1 ano de acesso + atualizações mensais",
+              "Módulo completo (14 aulas, 4+ horas)",
+              "Automações prontas copy-paste-activate",
+              "Agente espião de concorrentes configurado",
+              "Agente roteirista com IA",
+              "Sistema de avatar/clone de IA",
+              "Templates de carrosséis com IA",
+              "Postagem automática multi-plataforma",
+              "1 ano de acesso + atualizações",
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-3 py-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-1" />
@@ -831,45 +792,24 @@ export default function LandingPage() {
             ))}
           </div>
 
-          {/* Spotlight Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-14 items-start">
-            {/* R$3K — secondary */}
-            <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-white/[0.08] rounded-xl p-7 md:mt-8 opacity-90">
-              <span className="bg-white/[0.06] text-xs font-bold px-3 py-1 rounded-full" style={{ color: c.caption }}>FORMAÇÃO COMPLETA</span>
-              <p className="text-xs font-bold tracking-[0.15em] mt-4" style={{ color: c.caption }}>TUDO INCLUSO</p>
-              <p className="line-through text-base mt-3" style={{ color: c.muted }}>R$7.000</p>
-              <p className="text-3xl font-display font-bold mt-1" style={{ color: c.heading }}>R$3.000 <span className="text-base font-normal" style={{ color: c.caption }}>à vista</span></p>
-              <p className="text-sm mt-1" style={{ color: c.caption }}>ou 12x R$323,38</p>
-              <CtaButton href="https://chat.maestrosdaia.com" variant="outline" className="w-full mt-6 !justify-center">
-                QUERO COMEÇAR AGORA
-              </CtaButton>
-              <ul className="mt-5 space-y-2">
-                {["12 mentorias ao vivo", "Comunidade exclusiva", "Garantia 7 dias", "10 módulos completos"].map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm" style={{ color: c.body }}>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" /> {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* R$997 — SPOTLIGHT */}
-            <div className="relative order-first md:order-last">
+          {/* Single Pricing Card */}
+          <div className="max-w-[480px] mx-auto mt-14">
+            <div className="relative">
               <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-[#F5A623]/30 via-[#F5A623]/10 to-transparent blur-sm pointer-events-none" />
               <div className="relative bg-[#1C2333]/80 backdrop-blur-md border-2 border-[#F5A623]/30 rounded-2xl p-8 animate-pulse-glow">
                 <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#F5A623] to-[#E8951A] text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-[0_4px_16px_rgba(245,166,35,0.25)]">
-                  MAIS POPULAR
+                  OFERTA DE LANÇAMENTO
                 </span>
-                <span className="bg-[#F5A623]/[0.08] text-[#F5A623] text-xs font-bold px-3 py-1 rounded-full">COMECE PELO ESSENCIAL</span>
-                <p className="text-xs font-bold tracking-[0.15em] mt-4" style={{ color: c.caption }}>ACESSO FUNDAMENTAL</p>
-                <p className="line-through text-base mt-3" style={{ color: c.muted }}>R$30.000</p>
-                <p className="text-4xl font-display font-bold text-[#F5A623] mt-1">R$997 <span className="text-base font-normal" style={{ color: c.caption }}>à vista</span></p>
-                <p className="text-sm mt-1" style={{ color: c.caption }}>ou 12x R$97</p>
+                <p className="text-xs font-bold tracking-[0.15em] mt-2 text-center" style={{ color: c.caption }}>ACESSO COMPLETO</p>
+                <p className="line-through text-base mt-4 text-center" style={{ color: c.muted }}>R$2.026</p>
+                <p className="text-5xl font-display font-bold text-[#F5A623] mt-1 text-center">R$197</p>
+                <p className="text-sm mt-1 text-center" style={{ color: c.caption }}>ou 12x de R$19,70</p>
                 <CtaButton href="https://chat.maestrosdaia.com" size="lg" className="w-full mt-6 !justify-center">
                   GARANTIR MINHA VAGA
                   <ArrowRight className="w-5 h-5" />
                 </CtaButton>
                 <ul className="mt-5 space-y-2">
-                  {["Acesso ao módulo completo", "Garantia 90 dias de execução", "Templates prontos", "1 ano de acesso"].map((f) => (
+                  {["14 aulas + automações prontas", "Garantia de 7 dias", "Templates copy-paste-activate", "1 ano de acesso + atualizações"].map((f) => (
                     <li key={f} className="flex items-center gap-2 text-sm" style={{ color: c.body }}>
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" /> {f}
                     </li>
@@ -902,23 +842,13 @@ export default function LandingPage() {
             O Risco É <span className="text-[#F5A623]">100% Nosso</span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[900px] mx-auto mt-10">
-            <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-7 order-last md:order-first hover:border-[#F5A623]/20 transition-colors duration-300">
-              <span className="text-xs font-medium" style={{ color: c.caption }}>🛡️ Tier R$3K</span>
-              <h3 className="font-display text-lg font-bold mt-2" style={{ color: c.heading }}>
-                Garantia <span className="text-[#F5A623]">7 Dias</span>
-              </h3>
-              <p className="text-sm mt-3 leading-relaxed" style={{ color: c.body }}>
-                Acesse TUDO. Se em 7 dias você não sentir que isso vale pelo menos 10x o investimento, devolvemos <span className="font-semibold text-[#F5A623]">100% do seu dinheiro</span>. Sem perguntas. Sem burocracia.
-              </p>
-            </div>
+          <div className="max-w-[600px] mx-auto mt-10">
             <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-7 hover:border-[#F5A623]/20 transition-colors duration-300">
-              <span className="text-xs font-medium" style={{ color: c.caption }}>🛡️ Tier R$997</span>
               <h3 className="font-display text-lg font-bold mt-2" style={{ color: c.heading }}>
-                Garantia <span className="text-[#F5A623]">90 Dias</span> de Execução
+                Garantia Incondicional de <span className="text-[#F5A623]">7 Dias</span>
               </h3>
               <p className="text-sm mt-3 leading-relaxed" style={{ color: c.body }}>
-                Assista às aulas, implemente as automações, rode o sistema. Se em 90 dias você não triplicar o valor investido, devolvemos <span className="font-semibold text-[#F5A623]">100% dos seus R$997</span> + <span className="font-semibold text-[#F5A623]">1 hora de consultoria gratuita</span> para consertar seu funil. Nós assumimos o risco.
+                Acesse TUDO. Assista às aulas, teste as automações, implemente o sistema. Se em 7 dias você não sentir que isso vale pelo menos <span className="font-semibold text-[#F5A623]">10x os R$197 investidos</span>, devolvemos <span className="font-semibold text-[#F5A623]">100% do seu dinheiro</span>. Sem perguntas. Sem burocracia. O risco é todo nosso.
               </p>
             </div>
           </div>
@@ -995,7 +925,7 @@ export default function LandingPage() {
                 { trigger: <span>E se eu não quiser aparecer na câmera?</span>, content: <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: c.body }}>Perfeito. O módulo 3 ensina a criar avatares de IA que falam com sua voz e aparência — ou usar avatares genéricos. Você nunca precisa gravar se não quiser.</div> },
                 { trigger: <span>As ferramentas são pagas?</span>, content: <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: c.body }}>Algumas sim (Make, HeyGen, Metricool), mas mostramos as opções mais baratas e alternativas gratuitas quando existem. O investimento em ferramentas gira em torno de R$100-200/mês.</div> },
                 { trigger: <span>Em quanto tempo vejo resultados?</span>, content: <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: c.body }}>A primeira automação (postagem automática) pode estar rodando no mesmo dia. Nosso resultado comprovado: 20K seguidores em 30 dias com o sistema completo.</div> },
-                { trigger: <span>Posso acessar depois dos 7/90 dias?</span>, content: <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: c.body }}>Sim, você tem 1 ano de acesso completo a todo o conteúdo, com atualizações mensais inclusas.</div> },
+                { trigger: <span>Posso acessar depois dos 7 dias de garantia?</span>, content: <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: c.body }}>Sim, você tem 1 ano de acesso completo a todo o conteúdo, com atualizações mensais inclusas. A garantia de 7 dias é só para você testar sem risco.</div> },
               ]}
             />
           </div>
@@ -1019,7 +949,7 @@ export default function LandingPage() {
 
           <div className="bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg px-6 py-4 max-w-[500px] mx-auto mt-8">
             <p className="text-[#F5A623] font-medium text-sm">
-              ⚠️ Vagas com preço de lançamento limitadas. O valor sobe ao atingir 60 membros fundadores.
+              ⚠️ Preço de lançamento por tempo limitado. O valor sobe para R$497 em breve.
             </p>
           </div>
 
@@ -1096,7 +1026,7 @@ export default function LandingPage() {
               <X className="w-3.5 h-3.5" />
             </button>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold" style={{ color: c.heading }}>A partir de 12x R$97</span>
+              <span className="text-sm font-semibold" style={{ color: c.heading }}>12x R$19,70</span>
               <motion.a
                 whileTap={{ scale: 0.97 }}
                 href="https://chat.maestrosdaia.com"
