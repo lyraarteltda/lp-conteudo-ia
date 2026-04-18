@@ -74,8 +74,8 @@ function CtaButton({
 
   const sizeClass =
     size === "lg"
-      ? "px-12 py-5 text-lg font-extrabold rounded-xl gap-3"
-      : "px-8 py-3.5 text-base rounded-xl gap-2";
+      ? "px-8 py-4 md:px-12 md:py-5 text-base md:text-lg font-extrabold rounded-xl gap-2 md:gap-3"
+      : "px-6 py-3 md:px-8 md:py-3.5 text-sm md:text-base rounded-xl gap-2";
 
   return (
     <motion.a
@@ -114,7 +114,7 @@ const tools = [
 
 function ToolCarousel() {
   return (
-    <div className="overflow-hidden mt-20 w-full">
+    <div className="overflow-hidden mt-10 md:mt-20 w-full">
       <div className="flex animate-scroll-left w-max">
         {[...tools, ...tools].map((tool, i) => (
           <div key={i} className="flex-shrink-0 bg-white/[0.06] backdrop-blur-sm border border-white/[0.08] rounded-lg px-5 py-2.5 mx-1.5">
@@ -146,7 +146,7 @@ function Accordion({
         >
           <button
             onClick={() => setOpen(open === i ? -1 : i)}
-            className="w-full px-6 py-5 text-base font-semibold text-[#F0F6FC] hover:bg-white/[0.03] flex items-center justify-between text-left transition-colors"
+            className="w-full px-4 py-4 md:px-6 md:py-5 text-sm md:text-base font-semibold text-[#F0F6FC] hover:bg-white/[0.03] flex items-center justify-between text-left transition-colors"
           >
             {item.trigger}
             <ChevronDown
@@ -243,7 +243,7 @@ export default function LandingPage() {
       <section
         ref={heroRef}
         id="hero"
-        className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 md:pt-40 pb-12 overflow-hidden noise-bg"
+        className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 md:pt-40 pb-8 md:pb-12 overflow-hidden noise-bg"
         style={{ background: `linear-gradient(180deg, ${c.surface0} 0%, ${c.surface1} 100%)` }}
       >
         <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -254,7 +254,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 grid-bg pointer-events-none" />
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="flex flex-col items-center text-center max-w-[1000px] mx-auto relative z-10">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="inline-flex items-center gap-2 bg-[#F5A623]/[0.08] text-[#F5A623] border border-[#F5A623]/20 rounded-full px-4 py-2 text-sm font-medium mb-6">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="inline-flex items-center gap-2 bg-[#F5A623]/[0.08] text-[#F5A623] border border-[#F5A623]/20 rounded-full px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium mb-4 md:mb-6">
             <Sparkles className="w-4 h-4" />
             Módulo Exclusivo | +500 Alunos Transformados
           </motion.div>
@@ -275,13 +275,13 @@ export default function LandingPage() {
             <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">95% do Trabalho</span>
           </motion.h1>
 
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-lg md:text-xl max-w-[700px] mt-8 leading-relaxed" style={{ color: c.body }}>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-base md:text-xl max-w-[700px] mt-5 md:mt-8 leading-relaxed" style={{ color: c.body }}>
             O sistema exato que nos levou de 0 a 20 mil seguidores em 30 dias no TikTok e 10 mil no Instagram — sem gastar um centavo em tráfego pago, sem equipe, sem aparecer na câmera se você não quiser.
           </motion.p>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} className="flex flex-wrap justify-center gap-3 mt-8">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} className="flex flex-wrap justify-center gap-2 md:gap-3 mt-5 md:mt-8">
             {["200% de crescimento por semana", "Menos de 2h/semana", "Zero programação", "Sem câmera obrigatória"].map((badge) => (
-              <span key={badge} className="bg-white/[0.04] border border-white/[0.08] text-[#B8C4D4] text-sm px-4 py-2 rounded-lg">
+              <span key={badge} className="bg-white/[0.04] border border-white/[0.08] text-[#B8C4D4] text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 rounded-lg">
                 ✅ {badge}
               </span>
             ))}
@@ -302,7 +302,7 @@ export default function LandingPage() {
 
       {/* ═══ PAIN AMPLIFICATION ═══ */}
       <SectionDivider />
-      <section id="pain" className="relative py-24 md:py-32 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
+      <section id="pain" className="relative py-16 md:py-32 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-50" />
         <div className="relative max-w-[1200px] mx-auto">
           <div className="flex justify-center mb-6">
@@ -329,7 +329,7 @@ export default function LandingPage() {
               { bold: "Resultados medíocres", desc: "Posta, posta, posta... e os views morrem em 200" },
               { bold: "Concorrentes viralizando", desc: "Enquanto você luta por um like, seus concorrentes estão em todos os lugares" },
             ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-2.5 hover:border-red-500/15 transition-all duration-300 hover:-translate-y-0.5">
+              <div key={i} className="flex items-start gap-2.5 md:gap-3 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3 md:p-4 mb-2 md:mb-2.5 hover:border-red-500/15 transition-all duration-300 hover:-translate-y-0.5">
                 <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
                 <p style={{ color: c.body }}>
                   <span className="font-semibold" style={{ color: c.heading }}>{item.bold}</span> — {item.desc}
@@ -342,8 +342,8 @@ export default function LandingPage() {
             Se você se identificou com pelo menos 2 desses pontos, a culpa <span className="font-bold" style={{ color: c.heading }}>não é sua</span>. O jogo mudou. E quem não entendeu isso ainda está jogando com as regras de 2023.
           </p>
 
-          <div className="bg-gradient-to-r from-[#F5A623]/[0.06] to-transparent border border-[#F5A623]/15 rounded-xl p-8 max-w-[700px] mx-auto mt-10 text-center">
-            <div className="font-display text-5xl md:text-7xl font-bold text-[#F5A623]">
+          <div className="bg-gradient-to-r from-[#F5A623]/[0.06] to-transparent border border-[#F5A623]/15 rounded-xl p-5 md:p-8 max-w-[700px] mx-auto mt-8 md:mt-10 text-center">
+            <div className="font-display text-4xl md:text-7xl font-bold text-[#F5A623]">
               <span className="gsap-counter" data-end="47" data-suffix="x">47x</span>
             </div>
             <p className="text-base mt-4 leading-relaxed" style={{ color: c.body }}>
@@ -355,7 +355,7 @@ export default function LandingPage() {
 
       {/* ═══ SOLUTION — 4 PILLARS (BENTO GRID) ═══ */}
       <SectionDivider />
-      <section id="solution" className="relative py-28 md:py-40 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
+      <section id="solution" className="relative py-16 md:py-40 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute w-[500px] h-[500px] rounded-full bg-[#6366F1]/[0.04] blur-[120px] -top-20 -right-20" />
           <div className="absolute w-[400px] h-[400px] rounded-full bg-[#F5A623]/[0.03] blur-[100px] -bottom-20 -left-20" />
@@ -388,7 +388,7 @@ export default function LandingPage() {
                   key={i}
                   whileHover={{ y: -3, borderColor: "rgba(245,166,35,0.25)" }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className={`group relative bg-[${c.surface3}]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl transition-all duration-300 hover:shadow-[0_8px_40px_rgba(245,166,35,0.06)] ${pillar.span} ${isLarge ? "p-8 md:p-10" : i === 3 ? "p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6" : "p-6"}`}
+                  className={`group relative bg-[${c.surface3}]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl transition-all duration-300 hover:shadow-[0_8px_40px_rgba(245,166,35,0.06)] ${pillar.span} ${isLarge ? "p-5 md:p-10" : i === 3 ? "p-5 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-6" : "p-5 md:p-6"}`}
                 >
                   <div className={`${isLarge ? "w-16 h-16" : "w-12 h-12"} rounded-lg bg-gradient-to-br from-[#F5A623]/15 to-[#F5A623]/5 border border-[#F5A623]/15 flex items-center justify-center flex-shrink-0`}>
                     <Icon className={`${isLarge ? "w-8 h-8" : "w-6 h-6"} text-[#F5A623]`} />
@@ -402,7 +402,7 @@ export default function LandingPage() {
             })}
           </div>
 
-          <div className="bg-[${c.surface3}]/40 border border-white/[0.06] rounded-xl p-6 md:p-8 max-w-[1000px] mx-auto mt-8">
+          <div className="bg-[${c.surface3}]/40 border border-white/[0.06] rounded-xl p-4 md:p-8 max-w-[1000px] mx-auto mt-6 md:mt-8">
             <p className="text-center leading-relaxed" style={{ color: c.body }}>
               Juntos, esses 4 pilares eliminam os 3 maiores custos de criação de conteúdo:{" "}
               <span className="font-semibold" style={{ color: c.heading }}>tempo</span> (de 20h para 2h/semana),{" "}
@@ -422,7 +422,7 @@ export default function LandingPage() {
 
       {/* ═══ CURRICULUM ═══ */}
       <SectionDivider />
-      <section id="curriculum" className="relative py-24 md:py-32 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
+      <section id="curriculum" className="relative py-16 md:py-32 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
         <div className="relative max-w-[1200px] mx-auto">
           <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
@@ -453,7 +453,7 @@ export default function LandingPage() {
                         { title: "Geração de Vídeos com IA", time: "14 min", desc: "Gere vídeos com IA usando Fal.ai (modelo Wan 2.5) direto no N8N. De uma imagem + prompt, saia com um vídeo pronto com sincronização labial.", tools: "N8N, Fal.ai" },
                         { title: "Crescimento Orgânico: A Metodologia", time: "17 min", desc: "A estratégia exata de 4 pilares que nos levou a 20K no TikTok e 10K no Instagram em 30 dias, com zero tráfego pago. Aula conceitual que conecta todas as automações.", tools: "" },
                       ].map((lesson, i) => (
-                        <div key={i} className="border-t border-white/[0.04] px-6 py-4">
+                        <div key={i} className="border-t border-white/[0.04] px-4 py-3 md:px-6 md:py-4">
                           <div className="flex items-start justify-between">
                             <p className="font-medium" style={{ color: c.heading }}>Aula {i + 1} — {lesson.title}</p>
                             <span className="text-xs ml-2 flex-shrink-0" style={{ color: c.caption }}>{lesson.time}</span>
@@ -485,7 +485,7 @@ export default function LandingPage() {
                         { num: 5, title: "Agente Copywriter com RAG", time: "31 min", desc: "Construa um agente que consulta livros do Hormozi, Brunson e outros mestres de marketing via RAG (ChatPDF), e gera uma landing page completa: headlines, benefícios, prova social, FAQ, CTAs, código HTML responsivo — tudo baseado na sabedoria dos maiores copywriters do mundo.", tools: "Make, ChatPDF, OpenRouter (Claude), Google Docs, WhatsApp" },
                         { num: 6, title: "Agente Roteirista", time: "14 min", desc: "Transforme sua base de vídeos virais em roteiros prontos para gravação. Estrutura de 10 linhas: hook → desenvolvimento → plot twist → resolução → punchline. Personalizado com SEU estilo de falar.", tools: "Make, Google Sheets, OpenRouter" },
                       ].map((lesson) => (
-                        <div key={lesson.num} className="border-t border-white/[0.04] px-6 py-4">
+                        <div key={lesson.num} className="border-t border-white/[0.04] px-4 py-3 md:px-6 md:py-4">
                           <div className="flex items-start justify-between">
                             <p className="font-medium" style={{ color: c.heading }}>Aula {lesson.num} — {lesson.title}</p>
                             <span className="text-xs ml-2 flex-shrink-0" style={{ color: c.caption }}>{lesson.time}</span>
@@ -516,7 +516,7 @@ export default function LandingPage() {
                         { num: 8, title: "Seu Primeiro Clone de IA", time: "6 min", desc: "Tutorial passo a passo: grave 2 minutos, suba no HeyGen, e tenha seu avatar de IA falando qualquer texto que você digitar. Setup completo em 10 minutos.", tools: "HeyGen" },
                         { num: 9, title: "Conteúdo 100% Automatizado com Avatares", time: "24 min", desc: "O sistema COMPLETO: pesquisa → roteiro → avatar gera vídeo → postagem automática. Tudo conectado via Make + HeyGen + Google Drive. Produção de conteúdo no piloto automático total.", tools: "Make, HeyGen, Google Sheets, Google Drive, ElevenLabs" },
                       ].map((lesson) => (
-                        <div key={lesson.num} className="border-t border-white/[0.04] px-6 py-4">
+                        <div key={lesson.num} className="border-t border-white/[0.04] px-4 py-3 md:px-6 md:py-4">
                           <div className="flex items-start justify-between">
                             <p className="font-medium" style={{ color: c.heading }}>Aula {lesson.num} — {lesson.title}</p>
                             <span className="text-xs ml-2 flex-shrink-0" style={{ color: c.caption }}>{lesson.time}</span>
@@ -549,7 +549,7 @@ export default function LandingPage() {
                         { num: 13, title: "Carrosséis que Auto-Publicam", time: "19 min", desc: "Da geração à publicação sem tocar em nada: IA cria os slides → gera caption → posta no Instagram via Blotato. Carrosséis publicados com sucesso demonstrados na aula.", tools: "N8N, Fal.ai, Blotato" },
                         { num: 14, title: "Anúncios Estáticos para Vendas", time: "8 min", desc: "Espie os anúncios dos seus concorrentes na Facebook Ads Library, transcreva e traduza com IA (Vision), e use como inspiração para seus criativos. Análise automática de imagens e vídeos.", tools: "N8N, Facebook Ads Library, OpenAI Vision" },
                       ].map((lesson) => (
-                        <div key={lesson.num} className="border-t border-white/[0.04] px-6 py-4">
+                        <div key={lesson.num} className="border-t border-white/[0.04] px-4 py-3 md:px-6 md:py-4">
                           <div className="flex items-start justify-between">
                             <p className="font-medium" style={{ color: c.heading }}>Aula {lesson.num} — {lesson.title}</p>
                             <span className="text-xs ml-2 flex-shrink-0" style={{ color: c.caption }}>{lesson.time}</span>
@@ -569,9 +569,9 @@ export default function LandingPage() {
             />
           </div>
 
-          <div className="flex flex-wrap justify-center gap-3 mt-10">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-6 md:mt-10">
             {["14 Aulas", "4+ Horas", "Automações Prontas", "1 Ano de Acesso"].map((stat) => (
-              <span key={stat} className="bg-white/[0.04] border border-white/[0.06] text-sm px-4 py-2 rounded-lg" style={{ color: c.heading }}>{stat}</span>
+              <span key={stat} className="bg-white/[0.04] border border-white/[0.06] text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 rounded-lg" style={{ color: c.heading }}>{stat}</span>
             ))}
           </div>
         </div>
@@ -579,7 +579,7 @@ export default function LandingPage() {
 
       {/* ═══ INSTAGRAM PROOF — Real Metrics ═══ */}
       <SectionDivider />
-      <section id="proof" className="relative py-28 md:py-40 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
+      <section id="proof" className="relative py-16 md:py-40 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute w-[600px] h-[600px] rounded-full bg-blue-500/[0.04] blur-[130px] top-1/4 -left-40" />
           <div className="absolute w-[400px] h-[400px] rounded-full bg-[#E1306C]/[0.04] blur-[100px] bottom-20 right-20" />
@@ -608,30 +608,30 @@ export default function LandingPage() {
               { value: "1M+", label: "Contas Alcançadas", detail: "em 30 dias", color: "#6366F1" },
               { value: "469K", label: "Interações", detail: "curtidas + comentários + saves", color: "#10B981" },
             ].map((stat, i) => (
-              <div key={i} className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl p-5 md:p-6 text-center hover:border-white/[0.15] transition-all duration-300 group">
-                <div className="font-display text-3xl md:text-4xl font-bold" style={{ color: stat.color }}>
+              <div key={i} className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl p-3.5 md:p-6 text-center hover:border-white/[0.15] transition-all duration-300 group">
+                <div className="font-display text-2xl md:text-4xl font-bold" style={{ color: stat.color }}>
                   {stat.value}
                 </div>
-                <p className="text-sm font-semibold mt-1.5" style={{ color: c.heading }}>{stat.label}</p>
-                <p className="text-xs mt-1" style={{ color: c.caption }}>{stat.detail}</p>
+                <p className="text-xs md:text-sm font-semibold mt-1" style={{ color: c.heading }}>{stat.label}</p>
+                <p className="text-[10px] md:text-xs mt-0.5" style={{ color: c.caption }}>{stat.detail}</p>
               </div>
             ))}
           </div>
 
           {/* Instagram Dashboard Screenshot */}
-          <div className="mt-14 max-w-[900px] mx-auto">
+          <div className="mt-8 md:mt-14 max-w-[900px] mx-auto">
             <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/40">
               <img src="/insta-dashboard.png" alt="Painel de métricas do Instagram @maestrosdaia — 99.682 seguidores, 4.6M visualizações, 1M contas alcançadas" className="w-full h-auto" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#09090B]/80 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
-                <p className="text-xs font-medium uppercase tracking-widest" style={{ color: c.gold }}>Dados reais — Painel Instagram</p>
-                <p className="text-sm mt-1" style={{ color: c.body }}>Período: 19 de Mar – 17 de Abr 2026 · 96.5% orgânico (apenas 3.5% de anúncios)</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-[#09090B]/60 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 bg-[#09090B]/90 p-3 md:p-6">
+                <p className="text-[10px] md:text-xs font-medium uppercase tracking-widest" style={{ color: c.gold }}>Dados reais — Painel Instagram</p>
+                <p className="text-[10px] md:text-sm mt-0.5 md:mt-1 leading-tight" style={{ color: c.body }}>Período: 19 Mar – 17 Abr 2026 · 96.5% orgânico</p>
               </div>
             </div>
           </div>
 
           {/* Viral Reel Proof */}
-          <div className="mt-14 max-w-[1000px] mx-auto">
+          <div className="mt-8 md:mt-14 max-w-[1000px] mx-auto">
             <div className="flex justify-center mb-8">
               <span className="inline-flex items-center gap-2 bg-[#F5A623]/[0.08] text-[#F5A623] border border-[#F5A623]/15 rounded-full px-4 py-2 text-sm font-medium">
                 <Play className="w-3.5 h-3.5 fill-current" />
@@ -653,20 +653,20 @@ export default function LandingPage() {
 
                 <div className="bg-[#1C2333]/60 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-5 flex-1">
                   <p className="font-display text-sm font-bold uppercase tracking-widest" style={{ color: c.gold }}>Métricas deste único vídeo</p>
-                  <div className="grid grid-cols-2 gap-3 mt-4">
+                  <div className="grid grid-cols-3 md:grid-cols-2 gap-2 md:gap-3 mt-4">
                     {[
                       { icon: "👁", value: "669K", label: "Views" },
                       { icon: "❤️", value: "56.9K", label: "Curtidas" },
                       { icon: "💬", value: "1.724", label: "Comentários" },
-                      { icon: "📤", value: "32.4K", label: "Envios por DM" },
-                      { icon: "🔄", value: "1.826", label: "Compartilhamentos" },
-                      { icon: "📊", value: "8.5%", label: "Taxa de Engajamento" },
+                      { icon: "📤", value: "32.4K", label: "Envios" },
+                      { icon: "🔄", value: "1.826", label: "Shares" },
+                      { icon: "📊", value: "8.5%", label: "Engajamento" },
                     ].map((m, i) => (
-                      <div key={i} className="flex items-center gap-2.5 py-1.5">
-                        <span className="text-lg">{m.icon}</span>
+                      <div key={i} className="flex flex-col md:flex-row items-center md:items-center gap-1 md:gap-2.5 py-1.5 text-center md:text-left">
+                        <span className="text-base md:text-lg">{m.icon}</span>
                         <div>
-                          <span className="font-display font-bold text-base block" style={{ color: c.heading }}>{m.value}</span>
-                          <span className="text-xs" style={{ color: c.caption }}>{m.label}</span>
+                          <span className="font-display font-bold text-sm md:text-base block" style={{ color: c.heading }}>{m.value}</span>
+                          <span className="text-[10px] md:text-xs" style={{ color: c.caption }}>{m.label}</span>
                         </div>
                       </div>
                     ))}
@@ -677,20 +677,21 @@ export default function LandingPage() {
           </div>
 
           {/* Interaction breakdown bar */}
-          <div className="mt-12 max-w-[800px] mx-auto bg-[#1C2333]/40 border border-white/[0.06] rounded-xl p-6">
+          <div className="mt-8 md:mt-12 max-w-[800px] mx-auto bg-[#1C2333]/40 border border-white/[0.06] rounded-xl p-4 md:p-6">
             <p className="text-center text-sm font-semibold mb-4" style={{ color: c.heading }}>Interações nos últimos 30 dias — @maestrosdaia</p>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
               {[
-                { label: "Curtidas", value: "199.7K", bar: "w-full" },
-                { label: "Compartilhamentos", value: "122.5K", bar: "w-[61%]" },
-                { label: "Salvamentos", value: "97.1K", bar: "w-[49%]" },
-                { label: "Comentários", value: "49.5K", bar: "w-[25%]" },
-                { label: "Reposts", value: "4.9K", bar: "w-[2%]" },
+                { label: "Curtidas", labelShort: "Curtidas", value: "199.7K", bar: "w-full" },
+                { label: "Compartilhamentos", labelShort: "Shares", value: "122.5K", bar: "w-[61%]" },
+                { label: "Salvamentos", labelShort: "Saves", value: "97.1K", bar: "w-[49%]" },
+                { label: "Comentários", labelShort: "Coment.", value: "49.5K", bar: "w-[25%]" },
+                { label: "Reposts", labelShort: "Reposts", value: "4.9K", bar: "w-[2%]" },
               ].map((item, i) => (
                 <div key={i} className="text-center">
-                  <span className="font-display font-bold text-lg block" style={{ color: c.heading }}>{item.value}</span>
-                  <span className="text-xs" style={{ color: c.caption }}>{item.label}</span>
-                  <div className="h-1 bg-white/[0.06] rounded-full mt-2 overflow-hidden">
+                  <span className="font-display font-bold text-base md:text-lg block" style={{ color: c.heading }}>{item.value}</span>
+                  <span className="text-[10px] md:text-xs hidden md:inline" style={{ color: c.caption }}>{item.label}</span>
+                  <span className="text-[10px] md:hidden" style={{ color: c.caption }}>{item.labelShort}</span>
+                  <div className="h-1 bg-white/[0.06] rounded-full mt-1.5 md:mt-2 overflow-hidden">
                     <div className={`h-full bg-gradient-to-r from-[#E1306C] to-[#F5A623] rounded-full ${item.bar}`} />
                   </div>
                 </div>
@@ -703,7 +704,7 @@ export default function LandingPage() {
 
       {/* ═══ VALUE STACK ═══ */}
       <SectionDivider />
-      <section id="value" className="relative py-20 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
+      <section id="value" className="relative py-14 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="relative max-w-[1200px] mx-auto">
           <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
             Quanto Custaria Montar Tudo Isso <span className="bg-gradient-to-r from-[#F5A623] to-[#FFD666] bg-clip-text text-transparent">Sozinho</span>?
@@ -720,12 +721,12 @@ export default function LandingPage() {
               { item: "Agente copywriter com RAG (livros de marketing)", price: "R$297" },
               { item: "Templates de automação copy-paste-activate", price: "R$147" },
             ].map((row, i) => (
-              <div key={i} className={`flex justify-between items-center py-3.5 px-4 border-b border-white/[0.04] rounded-lg ${i % 2 === 0 ? "bg-white/[0.02]" : ""}`}>
-                <span className="flex items-center gap-3" style={{ color: c.heading }}>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  <span className="text-sm">{row.item}</span>
+              <div key={i} className={`flex justify-between items-center py-2.5 md:py-3.5 px-3 md:px-4 border-b border-white/[0.04] rounded-lg ${i % 2 === 0 ? "bg-white/[0.02]" : ""}`}>
+                <span className="flex items-center gap-2 md:gap-3" style={{ color: c.heading }}>
+                  <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4 text-emerald-400 flex-shrink-0" />
+                  <span className="text-xs md:text-sm">{row.item}</span>
                 </span>
-                <span className="font-semibold tabular-nums whitespace-nowrap ml-4 text-sm" style={{ color: c.caption }}>{row.price}</span>
+                <span className="font-semibold tabular-nums whitespace-nowrap ml-3 text-xs md:text-sm" style={{ color: c.caption }}>{row.price}</span>
               </div>
             ))}
             <div className="bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg mt-3 py-4 px-4 flex justify-between items-center">
@@ -742,7 +743,7 @@ export default function LandingPage() {
 
       {/* ═══ PRICING — SPOTLIGHT PATTERN ═══ */}
       <SectionDivider />
-      <section id="pricing" className="relative py-28 md:py-40 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
+      <section id="pricing" className="relative py-16 md:py-40 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F5A623]/[0.02] to-transparent pointer-events-none" />
         <div className="relative max-w-[1200px] mx-auto">
           <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
@@ -765,18 +766,18 @@ export default function LandingPage() {
               "Postagem automática multi-plataforma",
               "1 ano de acesso + atualizações",
             ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 py-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-1" />
-                <span className="text-sm" style={{ color: c.body }}>{item}</span>
+              <div key={i} className="flex items-start gap-2 md:gap-3 py-1.5 md:py-2">
+                <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                <span className="text-xs md:text-sm" style={{ color: c.body }}>{item}</span>
               </div>
             ))}
           </div>
 
           {/* Single Pricing Card */}
-          <div className="max-w-[480px] mx-auto mt-14">
+          <div className="max-w-[480px] mx-auto mt-8 md:mt-14">
             <div className="relative">
               <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-[#F5A623]/30 via-[#F5A623]/10 to-transparent blur-sm pointer-events-none" />
-              <div className="relative bg-[#1C2333]/80 backdrop-blur-md border-2 border-[#F5A623]/30 rounded-2xl p-8 animate-pulse-glow">
+              <div className="relative bg-[#1C2333]/80 backdrop-blur-md border-2 border-[#F5A623]/30 rounded-2xl p-6 md:p-8 animate-pulse-glow">
                 <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#F5A623] to-[#E8951A] text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-[0_4px_16px_rgba(245,166,35,0.25)]">
                   OFERTA DE LANÇAMENTO
                 </span>
@@ -804,7 +805,7 @@ export default function LandingPage() {
 
       {/* ═══ GUARANTEE ═══ */}
       <SectionDivider />
-      <section id="guarantee" className="relative py-20 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
+      <section id="guarantee" className="relative py-14 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="relative max-w-[1200px] mx-auto">
           <div className="flex justify-center">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#F5A623]/15 to-[#F5A623]/5 border border-[#F5A623]/15 flex items-center justify-center">
@@ -817,7 +818,7 @@ export default function LandingPage() {
           </h2>
 
           <div className="max-w-[600px] mx-auto mt-10">
-            <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-7 hover:border-[#F5A623]/20 transition-colors duration-300">
+            <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-5 md:p-7 hover:border-[#F5A623]/20 transition-colors duration-300">
               <h3 className="font-display text-lg font-bold mt-2" style={{ color: c.heading }}>
                 Garantia Incondicional de <span className="text-[#F5A623]">7 Dias</span>
               </h3>
@@ -831,16 +832,16 @@ export default function LandingPage() {
 
       {/* ═══ FOUNDERS ═══ */}
       <SectionDivider />
-      <section id="founders" className="relative py-28 md:py-36 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
+      <section id="founders" className="relative py-16 md:py-36 px-6 md:px-10 noise-bg" style={{ background: c.surface1 }}>
         <div className="relative max-w-[1200px] mx-auto">
           <h2 className="font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-center" style={{ color: c.heading }}>
             Quem São os <span className="text-[#F5A623]">Maestros</span> Por Trás do Sistema
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-[900px] mx-auto mt-8 md:mt-12">
             <div className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl overflow-hidden hover:border-[#F5A623]/15 transition-colors duration-300">
               <div className="h-1.5 bg-gradient-to-r from-[#F5A623] to-[#FF6B35]" />
-              <div className="p-7">
+              <div className="p-5 md:p-7">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#F5A623] to-[#FF6B35] flex items-center justify-center ring-3 ring-[#F5A623]/10 flex-shrink-0">
                     <span className="text-lg font-bold text-white">AE</span>
@@ -858,7 +859,7 @@ export default function LandingPage() {
 
             <div className="bg-[#1C2333]/60 backdrop-blur-sm border border-white/[0.08] rounded-xl overflow-hidden hover:border-[#6366F1]/15 transition-colors duration-300">
               <div className="h-1.5 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6]" />
-              <div className="p-7">
+              <div className="p-5 md:p-7">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center ring-3 ring-[#6366F1]/10 flex-shrink-0">
                     <span className="text-lg font-bold text-white">LZ</span>
@@ -875,7 +876,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="border-l-2 border-[#F5A623]/30 rounded-r-xl p-7 max-w-[800px] mx-auto mt-12 relative" style={{ background: `${c.surface3}80` }}>
+          <div className="border-l-2 border-[#F5A623]/30 rounded-r-xl p-5 md:p-7 max-w-[800px] mx-auto mt-8 md:mt-12 relative" style={{ background: `${c.surface3}80` }}>
             <span className="absolute -top-1 left-4 text-[#F5A623] text-5xl opacity-15 leading-none font-serif">&quot;</span>
             <p className="text-base leading-relaxed italic" style={{ color: c.body }}>
               Nenhum dos dois sabia programar. Gastaram <span className="font-semibold not-italic" style={{ color: c.heading }}>R$8K em consultoria de IA</span> e receberam um PDF genérico. Gastaram <span className="font-semibold not-italic" style={{ color: c.heading }}>R$12K em ferramentas</span> e nunca integraram. Contrataram um <span className="font-semibold not-italic" style={{ color: c.heading }}>dev freelancer</span> e o chatbot respondeu &quot;Não entendi&quot; 70% das vezes. Até que descobriram: você não precisa PROGRAMAR IA — precisa <span className="text-[#F5A623] font-bold not-italic">ORQUESTRAR IA</span>. Como um maestro rege uma orquestra.
@@ -886,7 +887,7 @@ export default function LandingPage() {
 
       {/* ═══ FAQ ═══ */}
       <SectionDivider />
-      <section id="faq" className="relative py-20 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
+      <section id="faq" className="relative py-14 md:py-28 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="relative max-w-[1200px] mx-auto">
           <h2 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-center" style={{ color: c.heading }}>
             Perguntas Frequentes
@@ -908,7 +909,7 @@ export default function LandingPage() {
 
       {/* ═══ FINAL CTA ═══ */}
       <SectionDivider />
-      <section id="final-cta" className="relative py-28 md:py-40 px-6 overflow-hidden noise-bg" style={{ background: c.surface1 }}>
+      <section id="final-cta" className="relative py-16 md:py-40 px-6 overflow-hidden noise-bg" style={{ background: c.surface1 }}>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F5A623]/[0.03] to-transparent pointer-events-none" />
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
         <div className="relative max-w-[700px] mx-auto text-center">
@@ -954,7 +955,7 @@ export default function LandingPage() {
 
       {/* ═══ FOOTER ═══ */}
       <SectionDivider />
-      <footer className="py-12 px-6" style={{ background: c.surface0, borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+      <footer className="py-8 md:py-12 px-6" style={{ background: c.surface0, borderTop: "1px solid rgba(255,255,255,0.04)" }}>
         <div className="max-w-[1200px] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <span className="font-display text-lg font-bold" style={{ color: c.heading }}>Maestros da IA</span>
