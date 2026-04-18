@@ -54,7 +54,7 @@ const scaleIn = {
 function DotGrid({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`absolute inset-0 pointer-events-none opacity-[0.03] ${className}`}
+      className={`absolute inset-0 pointer-events-none opacity-[0.07] ${className}`}
       style={{
         backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
         backgroundSize: "24px 24px",
@@ -66,7 +66,7 @@ function DotGrid({ className = "" }: { className?: string }) {
 function GoldDivider() {
   return (
     <div className="relative h-px w-full overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#F5A623]/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#F5A623]/60 to-transparent" />
     </div>
   );
 }
@@ -133,10 +133,10 @@ function SectionWrapper({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const bgClass = {
-    primary: "bg-[#0A0A0A]",
-    secondary: "bg-[#0F0F0F]",
-    dark: "bg-[#080810]",
-    elevated: "bg-[#131318]",
+    primary: "bg-[#0C0C0C]",
+    secondary: "bg-[#1C1C24]",
+    dark: "bg-[#0A0E1A]",
+    elevated: "bg-[#18181F]",
   }[bg];
 
   return (
@@ -148,7 +148,7 @@ function SectionWrapper({
         className={`relative ${paddingClass || "py-24 md:py-32"} px-6 md:px-8 ${bgClass} ${className}`}
       >
         {gradient && (
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(99,71,217,0.08),rgba(59,130,246,0.05),rgba(245,166,35,0.03))] pointer-events-none" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(99,71,217,0.12),rgba(59,130,246,0.08),rgba(245,166,35,0.05))] pointer-events-none" />
         )}
         {dots && <DotGrid />}
         <motion.div
@@ -209,7 +209,7 @@ function Accordion({
       {items.map((item, i) => (
         <div
           key={i}
-          className="bg-[rgba(255,255,255,0.04)] backdrop-blur-sm border border-[rgba(255,255,255,0.06)] rounded-2xl mb-4 overflow-hidden hover:border-[rgba(245,166,35,0.15)] transition-colors duration-300"
+          className="bg-[rgba(255,255,255,0.08)] backdrop-blur-sm border border-[rgba(255,255,255,0.06)] rounded-2xl mb-4 overflow-hidden hover:border-[rgba(245,166,35,0.15)] transition-colors duration-300"
         >
           <button
             onClick={() => setOpen(open === i ? -1 : i)}
@@ -310,7 +310,7 @@ export default function LandingPage() {
       <section
         ref={heroRef}
         id="hero"
-        className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 md:pt-40 pb-16 bg-[#0A0A0A] overflow-hidden"
+        className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 md:pt-40 pb-16 bg-[#0C0C0C] overflow-hidden"
       >
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <div
@@ -343,7 +343,7 @@ export default function LandingPage() {
             <span className="text-[#F5A623]">95% do Trabalho</span>
           </motion.h1>
 
-          <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/70 max-w-[700px] mt-6 leading-relaxed">
+          <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/85 max-w-[700px] mt-6 leading-relaxed">
             O sistema exato que nos levou de 0 a 20 mil seguidores em 30 dias no TikTok e 10 mil no Instagram — sem gastar um centavo em tráfego pago, sem equipe, sem aparecer na câmera se você não quiser.
           </motion.p>
 
@@ -374,7 +374,7 @@ export default function LandingPage() {
             </CtaButton>
           </motion.div>
 
-          <motion.p variants={fadeIn} className="text-sm text-white/45 text-center mt-3">
+          <motion.p variants={fadeIn} className="text-sm text-white/60 text-center mt-3">
             Acesso imediato. Sem risco. Garantia incondicional.
           </motion.p>
         </motion.div>
@@ -403,7 +403,7 @@ export default function LandingPage() {
           A Verdade Que Ninguém Te Conta Sobre Criar Conteúdo em 2026
         </motion.h2>
 
-        <motion.p variants={fadeInUp} className="text-xl text-white/70 text-center mt-6 mb-10">
+        <motion.p variants={fadeInUp} className="text-xl text-white/85 text-center mt-6 mb-10">
           Você reconhece algum desses sintomas?
         </motion.p>
 
@@ -419,17 +419,17 @@ export default function LandingPage() {
             <motion.div
               key={i}
               variants={fadeInLeft}
-              className="flex items-start gap-3 bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 md:p-5 mb-3 hover:border-red-500/20 transition-colors duration-300"
+              className="flex items-start gap-3 bg-white/[0.07] border border-white/[0.12] rounded-xl p-4 md:p-5 mb-3 hover:border-red-500/20 transition-colors duration-300"
             >
               <X className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-              <p className="text-white/80">
+              <p className="text-white/90">
                 <span className="font-semibold text-white">{item.bold}</span> — {item.desc}
               </p>
             </motion.div>
           ))}
         </motion.div>
 
-        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/70 text-center max-w-[700px] mx-auto mt-12">
+        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/85 text-center max-w-[700px] mx-auto mt-12">
           Se você se identificou com pelo menos 2 desses pontos, a culpa{" "}
           <span className="font-bold text-white">não é sua</span>. O jogo mudou. E quem não entendeu isso ainda está jogando com as regras de 2023.
         </motion.p>
@@ -438,7 +438,7 @@ export default function LandingPage() {
           <div className="text-5xl md:text-7xl font-extrabold text-[#F5A623]">
             <CountUp end={47} suffix="x" />
           </div>
-          <p className="text-white/80 text-lg mt-4">
+          <p className="text-white/90 text-lg mt-4">
             Em 2026, criadores que usam IA para conteúdo produzem <span className="font-bold text-white">47x mais</span> do que quem faz manual. Não é exagero. É matemática: enquanto você grava 1 vídeo, o sistema que vou te mostrar pesquisa, roteiriza, grava com avatar, edita e posta automaticamente — tudo sem você tocar no celular.
           </p>
         </motion.div>
@@ -451,7 +451,7 @@ export default function LandingPage() {
           <span className="text-[#F5A623]">Sistema Completo</span> de Criação de Conteúdo com IA
         </motion.h2>
 
-        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/70 text-center max-w-[600px] mx-auto mt-4">
+        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/85 text-center max-w-[600px] mx-auto mt-4">
           <span className="font-bold text-white">14</span> aulas práticas.{" "}
           <span className="font-bold text-white">4</span> pilares.{" "}
           <span className="font-bold text-white">1</span> resultado: seu conteúdo no piloto automático.
@@ -482,20 +482,20 @@ export default function LandingPage() {
                 key={i}
                 variants={fadeInUp}
                 whileHover={{ y: -4, borderColor: "rgba(245,166,35,0.3)" }}
-                className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 md:p-8 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(245,166,35,0.1)]"
+                className="bg-gradient-to-br from-white/[0.10] to-white/[0.04] backdrop-blur-sm border border-white/[0.15] rounded-2xl p-6 md:p-8 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(245,166,35,0.1)]"
               >
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#F5A623]/20 to-[#F5A623]/5 border border-[#F5A623]/20 flex items-center justify-center">
                   <Icon className="w-7 h-7 text-[#F5A623]" />
                 </div>
                 <h3 className="text-xl font-bold text-white mt-4">{pillar.title}</h3>
-                <p className="text-white/70 text-base mt-3 leading-relaxed">{pillar.desc}</p>
+                <p className="text-white/85 text-base mt-3 leading-relaxed">{pillar.desc}</p>
               </motion.div>
             );
           })}
         </motion.div>
 
-        <motion.div variants={fadeIn} className="bg-[#141418] border border-white/[0.06] rounded-2xl p-8 max-w-[900px] mx-auto mt-12 text-center">
-          <p className="text-white/80 text-lg leading-relaxed">
+        <motion.div variants={fadeIn} className="bg-[#1C1C24] border border-white/[0.12] rounded-2xl p-8 max-w-[900px] mx-auto mt-12 text-center">
+          <p className="text-white/90 text-lg leading-relaxed">
             Juntos, esses 4 pilares eliminam os 3 maiores custos de criação de conteúdo:{" "}
             <span className="font-bold text-white">tempo</span> (de 20h para 2h/semana),{" "}
             <span className="font-bold text-white">dinheiro</span> (de R$9.5K/mês em equipe para R$0) e{" "}
@@ -518,7 +518,7 @@ export default function LandingPage() {
           <span className="text-[#F5A623]">(e Implementar)</span>
         </motion.h2>
 
-        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/70 text-center max-w-[600px] mx-auto mt-4">
+        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/85 text-center max-w-[600px] mx-auto mt-4">
           Não são aulas teóricas. Cada aula termina com uma{" "}
           <span className="font-semibold text-white">automação funcionando</span>.
         </motion.p>
@@ -532,7 +532,7 @@ export default function LandingPage() {
                   <div className="flex items-center flex-1 min-w-0">
                     <span className="bg-[#F5A623]/15 text-[#F5A623] text-xs font-bold px-2 py-1 rounded-md mr-3 flex-shrink-0">M1</span>
                     <span className="truncate">Automação de Redes Sociais</span>
-                    <span className="text-white/45 text-sm ml-auto pl-3 flex-shrink-0">4 aulas</span>
+                    <span className="text-white/60 text-sm ml-auto pl-3 flex-shrink-0">4 aulas</span>
                   </div>
                 ),
                 content: (
@@ -546,13 +546,13 @@ export default function LandingPage() {
                       <div key={i} className="border-t border-white/5 px-6 py-4">
                         <div className="flex items-start justify-between">
                           <p className="font-medium text-white">Aula {i + 1} — {lesson.title}</p>
-                          <span className="text-white/45 text-xs ml-2 flex-shrink-0">{lesson.time}</span>
+                          <span className="text-white/60 text-xs ml-2 flex-shrink-0">{lesson.time}</span>
                         </div>
-                        <p className="text-white/70 text-sm mt-1 leading-relaxed">{lesson.desc}</p>
+                        <p className="text-white/85 text-sm mt-1 leading-relaxed">{lesson.desc}</p>
                         {lesson.tools && (
                           <div className="flex flex-wrap gap-1 mt-2">
                             {lesson.tools.split(", ").map((t) => (
-                              <span key={t} className="bg-white/5 text-white/70 text-xs px-2 py-1 rounded-md">🛠 {t}</span>
+                              <span key={t} className="bg-white/5 text-white/85 text-xs px-2 py-1 rounded-md">🛠 {t}</span>
                             ))}
                           </div>
                         )}
@@ -566,7 +566,7 @@ export default function LandingPage() {
                   <div className="flex items-center flex-1 min-w-0">
                     <span className="bg-[#F5A623]/15 text-[#F5A623] text-xs font-bold px-2 py-1 rounded-md mr-3 flex-shrink-0">M2</span>
                     <span className="truncate">Copywriting & Roteiros com IA</span>
-                    <span className="text-white/45 text-sm ml-auto pl-3 flex-shrink-0">2 aulas</span>
+                    <span className="text-white/60 text-sm ml-auto pl-3 flex-shrink-0">2 aulas</span>
                   </div>
                 ),
                 content: (
@@ -578,12 +578,12 @@ export default function LandingPage() {
                       <div key={lesson.num} className="border-t border-white/5 px-6 py-4">
                         <div className="flex items-start justify-between">
                           <p className="font-medium text-white">Aula {lesson.num} — {lesson.title}</p>
-                          <span className="text-white/45 text-xs ml-2 flex-shrink-0">{lesson.time}</span>
+                          <span className="text-white/60 text-xs ml-2 flex-shrink-0">{lesson.time}</span>
                         </div>
-                        <p className="text-white/70 text-sm mt-1 leading-relaxed">{lesson.desc}</p>
+                        <p className="text-white/85 text-sm mt-1 leading-relaxed">{lesson.desc}</p>
                         <div className="flex flex-wrap gap-1 mt-2">
                           {lesson.tools.split(", ").map((t) => (
-                            <span key={t} className="bg-white/5 text-white/70 text-xs px-2 py-1 rounded-md">🛠 {t}</span>
+                            <span key={t} className="bg-white/5 text-white/85 text-xs px-2 py-1 rounded-md">🛠 {t}</span>
                           ))}
                         </div>
                       </div>
@@ -596,7 +596,7 @@ export default function LandingPage() {
                   <div className="flex items-center flex-1 min-w-0">
                     <span className="bg-[#F5A623]/15 text-[#F5A623] text-xs font-bold px-2 py-1 rounded-md mr-3 flex-shrink-0">M3</span>
                     <span className="truncate">Avatares & Clones de IA</span>
-                    <span className="text-white/45 text-sm ml-auto pl-3 flex-shrink-0">3 aulas</span>
+                    <span className="text-white/60 text-sm ml-auto pl-3 flex-shrink-0">3 aulas</span>
                   </div>
                 ),
                 content: (
@@ -609,12 +609,12 @@ export default function LandingPage() {
                       <div key={lesson.num} className="border-t border-white/5 px-6 py-4">
                         <div className="flex items-start justify-between">
                           <p className="font-medium text-white">Aula {lesson.num} — {lesson.title}</p>
-                          <span className="text-white/45 text-xs ml-2 flex-shrink-0">{lesson.time}</span>
+                          <span className="text-white/60 text-xs ml-2 flex-shrink-0">{lesson.time}</span>
                         </div>
-                        <p className="text-white/70 text-sm mt-1 leading-relaxed">{lesson.desc}</p>
+                        <p className="text-white/85 text-sm mt-1 leading-relaxed">{lesson.desc}</p>
                         <div className="flex flex-wrap gap-1 mt-2">
                           {lesson.tools.split(", ").map((t) => (
-                            <span key={t} className="bg-white/5 text-white/70 text-xs px-2 py-1 rounded-md">🛠 {t}</span>
+                            <span key={t} className="bg-white/5 text-white/85 text-xs px-2 py-1 rounded-md">🛠 {t}</span>
                           ))}
                         </div>
                       </div>
@@ -627,7 +627,7 @@ export default function LandingPage() {
                   <div className="flex items-center flex-1 min-w-0">
                     <span className="bg-[#F5A623]/15 text-[#F5A623] text-xs font-bold px-2 py-1 rounded-md mr-3 flex-shrink-0">M4</span>
                     <span className="truncate">Carrosséis & Anúncios</span>
-                    <span className="text-white/45 text-sm ml-auto pl-3 flex-shrink-0">5 aulas</span>
+                    <span className="text-white/60 text-sm ml-auto pl-3 flex-shrink-0">5 aulas</span>
                   </div>
                 ),
                 content: (
@@ -642,12 +642,12 @@ export default function LandingPage() {
                       <div key={lesson.num} className="border-t border-white/5 px-6 py-4">
                         <div className="flex items-start justify-between">
                           <p className="font-medium text-white">Aula {lesson.num} — {lesson.title}</p>
-                          <span className="text-white/45 text-xs ml-2 flex-shrink-0">{lesson.time}</span>
+                          <span className="text-white/60 text-xs ml-2 flex-shrink-0">{lesson.time}</span>
                         </div>
-                        <p className="text-white/70 text-sm mt-1 leading-relaxed">{lesson.desc}</p>
+                        <p className="text-white/85 text-sm mt-1 leading-relaxed">{lesson.desc}</p>
                         <div className="flex flex-wrap gap-1 mt-2">
                           {lesson.tools.split(", ").map((t) => (
-                            <span key={t} className="bg-white/5 text-white/70 text-xs px-2 py-1 rounded-md">🛠 {t}</span>
+                            <span key={t} className="bg-white/5 text-white/85 text-xs px-2 py-1 rounded-md">🛠 {t}</span>
                           ))}
                         </div>
                       </div>
@@ -683,13 +683,13 @@ export default function LandingPage() {
             <motion.div
               key={i}
               variants={fadeInUp}
-              className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 text-center hover:border-[#F5A623]/20 transition-colors duration-300"
+              className="bg-gradient-to-br from-white/[0.10] to-white/[0.04] backdrop-blur-sm border border-white/[0.15] rounded-2xl p-8 text-center hover:border-[#F5A623]/20 transition-colors duration-300"
             >
               <div className="text-4xl md:text-5xl font-extrabold text-[#F5A623]">
                 <CountUp end={stat.num} suffix={stat.suffix} />
               </div>
               <p className="text-lg font-semibold text-white mt-2">{stat.label}</p>
-              <p className="text-sm text-white/70 mt-1">{stat.desc}</p>
+              <p className="text-sm text-white/85 mt-1">{stat.desc}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -706,11 +706,11 @@ export default function LandingPage() {
               <motion.div
                 key={i}
                 variants={fadeIn}
-                className="snap-center min-w-[280px] md:min-w-0 bg-gradient-to-br from-[#161620] to-[#0E0E14] border border-white/[0.08] hover:border-[#F5A623]/20 rounded-2xl p-6 relative flex-shrink-0 transition-all duration-300"
+                className="snap-center min-w-[280px] md:min-w-0 bg-gradient-to-br from-[#1E1E2A] to-[#14141E] border border-white/[0.15] hover:border-[#F5A623]/20 rounded-2xl p-6 relative flex-shrink-0 transition-all duration-300"
               >
                 <span className="absolute top-4 right-4 text-[#F5A623] text-4xl opacity-20 leading-none">&quot;</span>
                 <div className="flex items-center gap-3">
-                  <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${avatarGradients[i % avatarGradients.length]} flex items-center justify-center ring-2 ring-white/10 ring-offset-2 ring-offset-[#0E0E14]`}>
+                  <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${avatarGradients[i % avatarGradients.length]} flex items-center justify-center ring-2 ring-white/10 ring-offset-2 ring-offset-[#14141E]`}>
                     <span className="font-bold text-white text-lg drop-shadow-sm">
                       {t.name.split(" ").map(n => n[0]).join("")}
                     </span>
@@ -720,7 +720,7 @@ export default function LandingPage() {
                     <span className="text-white/40 text-xs">Aluno Maestros da IA</span>
                   </div>
                 </div>
-                <p className="text-white/80 text-sm mt-4 italic leading-relaxed">&quot;{t.quote}&quot;</p>
+                <p className="text-white/90 text-sm mt-4 italic leading-relaxed">&quot;{t.quote}&quot;</p>
                 <div className="flex gap-0.5 mt-4">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star key={s} className="w-4 h-4 text-[#F5A623] fill-[#F5A623]" />
@@ -752,7 +752,7 @@ export default function LandingPage() {
             <motion.div
               key={i}
               variants={fadeInRight}
-              className={`flex justify-between items-center py-4 px-6 border-b border-white/[0.06] rounded-lg ${
+              className={`flex justify-between items-center py-4 px-6 border-b border-white/[0.12] rounded-lg ${
                 i % 2 === 0 ? "bg-white/[0.02]" : ""
               }`}
             >
@@ -760,7 +760,7 @@ export default function LandingPage() {
                 <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                 <span className="text-sm md:text-base">{row.item}</span>
               </span>
-              <span className="text-white/70 font-semibold tabular-nums whitespace-nowrap ml-4 text-sm md:text-base">{row.price}</span>
+              <span className="text-white/85 font-semibold tabular-nums whitespace-nowrap ml-4 text-sm md:text-base">{row.price}</span>
             </motion.div>
           ))}
 
@@ -773,10 +773,10 @@ export default function LandingPage() {
           </motion.div>
         </motion.div>
 
-        <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-center text-white/80 max-w-[600px] mx-auto mt-12 leading-relaxed">
-          Você não vai pagar <span className="line-through text-white/45">R$142K</span>. Nem{" "}
-          <span className="line-through text-white/45">R$50K</span>. Nem{" "}
-          <span className="line-through text-white/45">R$10K</span>.{" "}
+        <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-center text-white/90 max-w-[600px] mx-auto mt-12 leading-relaxed">
+          Você não vai pagar <span className="line-through text-white/60">R$142K</span>. Nem{" "}
+          <span className="line-through text-white/60">R$50K</span>. Nem{" "}
+          <span className="line-through text-white/60">R$10K</span>.{" "}
           <span className="font-bold text-white">Este módulo completo está incluído na Formação Maestros da IA.</span>
         </motion.p>
       </SectionWrapper>
@@ -790,7 +790,7 @@ export default function LandingPage() {
           <span className="text-[#F5A623]">Formação Maestros da IA</span>
         </motion.h2>
 
-        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/70 text-center max-w-[600px] mx-auto mt-4 relative">
+        <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/85 text-center max-w-[600px] mx-auto mt-4 relative">
           14 aulas de criação de conteúdo com IA + TUDO que a formação oferece:
         </motion.p>
 
@@ -808,25 +808,25 @@ export default function LandingPage() {
           ].map((item, i) => (
             <motion.div key={i} variants={fadeInLeft} className="flex items-start gap-3 py-2">
               <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-              <span className="text-white/80">{item}</span>
+              <span className="text-white/90">{item}</span>
             </motion.div>
           ))}
         </motion.div>
 
         <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-12 relative">
           {/* Tier R$3K */}
-          <motion.div variants={fadeInUp} className="bg-white/[0.04] backdrop-blur-md border border-white/[0.08] rounded-2xl p-8 hover:border-white/[0.15] transition-all duration-300">
+          <motion.div variants={fadeInUp} className="bg-white/[0.08] backdrop-blur-md border border-white/[0.15] rounded-2xl p-8 hover:border-white/[0.15] transition-all duration-300">
             <span className="bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-full">FORMAÇÃO COMPLETA</span>
-            <p className="text-sm font-bold text-white/70 tracking-widest mt-4">TUDO INCLUSO</p>
-            <p className="text-white/45 line-through text-lg mt-4">R$7.000</p>
-            <p className="text-4xl font-extrabold text-white mt-1">R$3.000 <span className="text-lg font-normal text-white/70">à vista</span></p>
-            <p className="text-white/70 text-sm mt-1">ou 12x R$323,38</p>
+            <p className="text-sm font-bold text-white/85 tracking-widest mt-4">TUDO INCLUSO</p>
+            <p className="text-white/60 line-through text-lg mt-4">R$7.000</p>
+            <p className="text-4xl font-extrabold text-white mt-1">R$3.000 <span className="text-lg font-normal text-white/85">à vista</span></p>
+            <p className="text-white/85 text-sm mt-1">ou 12x R$323,38</p>
             <CtaButton href="https://chat.maestrosdaia.com" className="w-full mt-6 !justify-center">
               QUERO COMEÇAR AGORA
             </CtaButton>
             <ul className="mt-6 space-y-2">
               {["12 mentorias ao vivo", "Comunidade exclusiva", "Garantia 7 dias", "10 módulos completos"].map((f) => (
-                <li key={f} className="flex items-center gap-2 text-white/70 text-sm">
+                <li key={f} className="flex items-center gap-2 text-white/85 text-sm">
                   <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" /> {f}
                 </li>
               ))}
@@ -836,21 +836,21 @@ export default function LandingPage() {
           {/* Tier R$997 — recommended */}
           <motion.div variants={fadeInUp} className="relative order-first md:order-last overflow-hidden rounded-2xl">
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#F5A623]/20 via-transparent to-[#F5A623]/10 pointer-events-none" />
-            <div className="relative bg-white/[0.04] backdrop-blur-md border-2 border-[#F5A623]/40 rounded-2xl p-8 animate-pulse-glow">
+            <div className="relative bg-white/[0.08] backdrop-blur-md border-2 border-[#F5A623]/40 rounded-2xl p-8 animate-pulse-glow">
               <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#F5A623] to-[#E8951A] text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-[0_4px_12px_rgba(245,166,35,0.3)]">
                 MAIS POPULAR
               </span>
               <span className="bg-[#F5A623]/10 text-[#F5A623] text-xs font-bold px-3 py-1 rounded-full">COMECE PELO ESSENCIAL</span>
-              <p className="text-sm font-bold text-white/70 tracking-widest mt-4">ACESSO FUNDAMENTAL</p>
-              <p className="text-white/45 line-through text-lg mt-4">R$30.000</p>
-              <p className="text-4xl font-extrabold text-[#F5A623] mt-1">R$997 <span className="text-lg font-normal text-white/70">à vista</span></p>
-              <p className="text-white/70 text-sm mt-1">ou 12x R$97</p>
+              <p className="text-sm font-bold text-white/85 tracking-widest mt-4">ACESSO FUNDAMENTAL</p>
+              <p className="text-white/60 line-through text-lg mt-4">R$30.000</p>
+              <p className="text-4xl font-extrabold text-[#F5A623] mt-1">R$997 <span className="text-lg font-normal text-white/85">à vista</span></p>
+              <p className="text-white/85 text-sm mt-1">ou 12x R$97</p>
               <CtaButton href="https://chat.maestrosdaia.com" className="w-full mt-6 !justify-center">
                 GARANTIR MINHA VAGA
               </CtaButton>
               <ul className="mt-6 space-y-2">
                 {["Acesso ao módulo completo", "Garantia 90 dias de execução", "Templates prontos", "1 ano de acesso"].map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-white/70 text-sm">
+                  <li key={f} className="flex items-center gap-2 text-white/85 text-sm">
                     <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" /> {f}
                   </li>
                 ))}
@@ -880,23 +880,23 @@ export default function LandingPage() {
         </motion.h2>
 
         <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mt-10">
-          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.05] to-white/[0.02] backdrop-blur-sm border border-[#F5A623]/15 rounded-2xl p-8 order-last md:order-first hover:border-[#F5A623]/25 transition-colors duration-300">
-            <div className="flex items-center gap-2 text-white/45 text-sm font-medium">🛡️ Tier R$3K</div>
+          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.08] to-white/[0.03] backdrop-blur-sm border border-[#F5A623]/15 rounded-2xl p-8 order-last md:order-first hover:border-[#F5A623]/25 transition-colors duration-300">
+            <div className="flex items-center gap-2 text-white/60 text-sm font-medium">🛡️ Tier R$3K</div>
             <h3 className="text-xl font-bold text-white mt-3">
               Garantia <span className="text-[#F5A623]">7 Dias</span>
             </h3>
-            <p className="text-white/80 text-base mt-4 leading-relaxed">
+            <p className="text-white/90 text-base mt-4 leading-relaxed">
               Acesse TUDO. Se em 7 dias você não sentir que isso vale pelo menos 10x o investimento, devolvemos{" "}
               <span className="font-semibold text-[#F5A623]">100% do seu dinheiro</span>. Sem perguntas. Sem burocracia.
             </p>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.05] to-white/[0.02] backdrop-blur-sm border border-[#F5A623]/15 rounded-2xl p-8 hover:border-[#F5A623]/25 transition-colors duration-300">
-            <div className="flex items-center gap-2 text-white/45 text-sm font-medium">🛡️ Tier R$997</div>
+          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.08] to-white/[0.03] backdrop-blur-sm border border-[#F5A623]/15 rounded-2xl p-8 hover:border-[#F5A623]/25 transition-colors duration-300">
+            <div className="flex items-center gap-2 text-white/60 text-sm font-medium">🛡️ Tier R$997</div>
             <h3 className="text-xl font-bold text-white mt-3">
               Garantia <span className="text-[#F5A623]">90 Dias</span> de Execução
             </h3>
-            <p className="text-white/80 text-base mt-4 leading-relaxed">
+            <p className="text-white/90 text-base mt-4 leading-relaxed">
               Assista às aulas, implemente as automações, rode o sistema. Se em 90 dias você não triplicar o valor investido, devolvemos{" "}
               <span className="font-semibold text-[#F5A623]">100% dos seus R$997</span> +{" "}
               <span className="font-semibold text-[#F5A623]">1 hora de consultoria gratuita</span> para consertar seu funil. Nós assumimos o risco.
@@ -912,7 +912,7 @@ export default function LandingPage() {
         </motion.h2>
 
         <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[900px] mx-auto mt-12">
-          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl overflow-hidden hover:border-[#F5A623]/20 transition-colors duration-300">
+          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.10] to-white/[0.04] backdrop-blur-sm border border-white/[0.15] rounded-2xl overflow-hidden hover:border-[#F5A623]/20 transition-colors duration-300">
             <div className="h-2 bg-gradient-to-r from-[#F5A623] to-[#FF6B35]" />
             <div className="p-8">
               <div className="flex items-center gap-5">
@@ -924,13 +924,13 @@ export default function LandingPage() {
                   <p className="text-[#F5A623] text-sm font-semibold tracking-wide uppercase">Co-Fundador & CEO</p>
                 </div>
               </div>
-              <p className="text-white/80 text-sm mt-5 leading-relaxed">
+              <p className="text-white/90 text-sm mt-5 leading-relaxed">
                 Músico premiado com turnês internacionais. Doutor Honoris Causa. Zero background em programação. Transformou um simples curso de violão em R$2.5 milhões em 15 meses usando agentes de IA.
               </p>
             </div>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl overflow-hidden hover:border-[#F5A623]/20 transition-colors duration-300">
+          <motion.div variants={fadeInUp} className="bg-gradient-to-br from-white/[0.10] to-white/[0.04] backdrop-blur-sm border border-white/[0.15] rounded-2xl overflow-hidden hover:border-[#F5A623]/20 transition-colors duration-300">
             <div className="h-2 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6]" />
             <div className="p-8">
               <div className="flex items-center gap-5">
@@ -942,7 +942,7 @@ export default function LandingPage() {
                   <p className="text-[#F5A623] text-sm font-semibold tracking-wide uppercase">Co-Fundadora & COO</p>
                 </div>
               </div>
-              <p className="text-white/80 text-sm mt-5 leading-relaxed">
+              <p className="text-white/90 text-sm mt-5 leading-relaxed">
                 Administradora com experiência em grandes empresas de tech (SAP). Especialista em IA aplicada a processos corporativos e ERP. Consultora Enterprise.
               </p>
             </div>
@@ -951,10 +951,10 @@ export default function LandingPage() {
 
         <motion.div
           variants={fadeIn}
-          className="bg-[#141418] border-l-4 border-[#F5A623] rounded-r-2xl p-8 max-w-[800px] mx-auto mt-12 relative"
+          className="bg-[#1C1C24] border-l-4 border-[#F5A623] rounded-r-2xl p-8 max-w-[800px] mx-auto mt-12 relative"
         >
           <span className="absolute -top-2 left-4 text-[#F5A623] text-6xl opacity-20 leading-none">&quot;</span>
-          <p className="text-white/80 text-base leading-relaxed italic">
+          <p className="text-white/90 text-base leading-relaxed italic">
             Nenhum dos dois sabia programar. Gastaram{" "}
             <span className="font-semibold text-white not-italic">R$8K em consultoria de IA</span> e receberam um PDF genérico. Gastaram{" "}
             <span className="font-semibold text-white not-italic">R$12K em ferramentas</span> e nunca integraram. Contrataram um{" "}
@@ -976,7 +976,7 @@ export default function LandingPage() {
               {
                 trigger: <span>Preciso saber programar?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/90 leading-relaxed">
                     Zero. Todas as automações são montadas com ferramentas visuais (Make, N8N) com nossos templates prontos. Se você sabe arrastar e soltar, sabe usar.
                   </div>
                 ),
@@ -984,7 +984,7 @@ export default function LandingPage() {
               {
                 trigger: <span>Funciona para qualquer nicho?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/90 leading-relaxed">
                     Sim. O sistema de pesquisa busca concorrentes do SEU nicho em 10+ países. Já usamos para fitness, educação, tech, saúde, gastronomia e mais.
                   </div>
                 ),
@@ -992,7 +992,7 @@ export default function LandingPage() {
               {
                 trigger: <span>E se eu não quiser aparecer na câmera?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/90 leading-relaxed">
                     Perfeito. O módulo 3 ensina a criar avatares de IA que falam com sua voz e aparência — ou usar avatares genéricos. Você nunca precisa gravar se não quiser.
                   </div>
                 ),
@@ -1000,7 +1000,7 @@ export default function LandingPage() {
               {
                 trigger: <span>As ferramentas são pagas?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/90 leading-relaxed">
                     Algumas sim (Make, HeyGen, Metricool), mas mostramos as opções mais baratas e alternativas gratuitas quando existem. O investimento em ferramentas gira em torno de R$100-200/mês.
                   </div>
                 ),
@@ -1008,7 +1008,7 @@ export default function LandingPage() {
               {
                 trigger: <span>Em quanto tempo vejo resultados?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/90 leading-relaxed">
                     A primeira automação (postagem automática) pode estar rodando no mesmo dia. Nosso resultado comprovado: 20K seguidores em 30 dias com o sistema completo.
                   </div>
                 ),
@@ -1016,7 +1016,7 @@ export default function LandingPage() {
               {
                 trigger: <span>Posso acessar depois dos 7/90 dias?</span>,
                 content: (
-                  <div className="px-6 pb-5 text-white/80 leading-relaxed">
+                  <div className="px-6 pb-5 text-white/90 leading-relaxed">
                     Sim, você tem 1 ano de acesso completo a todo o conteúdo, com atualizações mensais inclusas.
                   </div>
                 ),
@@ -1030,10 +1030,10 @@ export default function LandingPage() {
       <GoldDivider />
       <section
         id="final-cta"
-        className="relative py-28 md:py-36 px-6 bg-[#080810] overflow-hidden"
+        className="relative py-28 md:py-36 px-6 bg-[#0A0E1A] overflow-hidden"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#080810_0%,rgba(245,166,35,0.05)_50%,#080810_100%)] pointer-events-none" />
-        <DotGrid className="opacity-[0.02]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#0A0E1A_0%,rgba(245,166,35,0.08)_50%,#0A0E1A_100%)] pointer-events-none" />
+        <DotGrid className="opacity-[0.05]" />
 
         <motion.div
           initial="hidden"
@@ -1047,7 +1047,7 @@ export default function LandingPage() {
             <span className="text-[#F5A623]">E Você?</span>
           </motion.h2>
 
-          <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/70 mt-6 max-w-[600px] mx-auto">
+          <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/85 mt-6 max-w-[600px] mx-auto">
             Cada dia sem esse sistema é mais um dia perdendo para quem já usa IA para criar conteúdo{" "}
             <span className="font-bold text-white">47x mais rápido</span>.
           </motion.p>
@@ -1064,18 +1064,18 @@ export default function LandingPage() {
             </CtaButton>
           </motion.div>
 
-          <motion.p variants={fadeIn} className="text-sm text-white/45 mt-4">
+          <motion.p variants={fadeIn} className="text-sm text-white/60 mt-4">
             Pagamento seguro | Garantia de reembolso | Acesso imediato
           </motion.p>
 
           <motion.div variants={fadeIn} className="flex justify-center gap-6 mt-6">
-            <span className="flex items-center gap-1.5 text-white/45 text-xs">
+            <span className="flex items-center gap-1.5 text-white/60 text-xs">
               <Lock className="w-4 h-4" /> Seguro
             </span>
-            <span className="flex items-center gap-1.5 text-white/45 text-xs">
+            <span className="flex items-center gap-1.5 text-white/60 text-xs">
               <CheckCircle2 className="w-4 h-4" /> Garantia
             </span>
-            <span className="flex items-center gap-1.5 text-white/45 text-xs">
+            <span className="flex items-center gap-1.5 text-white/60 text-xs">
               <Zap className="w-4 h-4" /> Imediato
             </span>
           </motion.div>
@@ -1084,7 +1084,7 @@ export default function LandingPage() {
 
       {/* SECTION 12: FOOTER */}
       <GoldDivider />
-      <footer className="border-t border-white/5 py-12 px-6 bg-[#0A0A0A]">
+      <footer className="border-t border-white/5 py-12 px-6 bg-[#0C0C0C]">
         <div className="max-w-[1200px] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <span className="text-lg font-bold text-white">Maestros da IA</span>
@@ -1093,7 +1093,7 @@ export default function LandingPage() {
                 href="https://instagram.com/maestrosdaia"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/45 hover:text-white transition-colors"
+                className="text-white/60 hover:text-white transition-colors"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -1102,7 +1102,7 @@ export default function LandingPage() {
                 href="https://tiktok.com/@maestrosdaia"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/45 hover:text-white transition-colors"
+                className="text-white/60 hover:text-white transition-colors"
                 aria-label="TikTok"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13a8.3 8.3 0 005.58 2.15V11.7a4.85 4.85 0 01-2.28-.59l-.01-.01.01.01V6.69h2.28z"/></svg>
@@ -1111,12 +1111,12 @@ export default function LandingPage() {
           </div>
 
           <div className="flex justify-center gap-4 mt-6">
-            <a href="#" className="text-sm text-white/45 hover:text-white underline-offset-4 hover:underline">Termos de Uso</a>
+            <a href="#" className="text-sm text-white/60 hover:text-white underline-offset-4 hover:underline">Termos de Uso</a>
             <span className="text-white/20">|</span>
-            <a href="#" className="text-sm text-white/45 hover:text-white underline-offset-4 hover:underline">Política de Privacidade</a>
+            <a href="#" className="text-sm text-white/60 hover:text-white underline-offset-4 hover:underline">Política de Privacidade</a>
           </div>
 
-          <p className="text-xs text-white/45 text-center mt-4">
+          <p className="text-xs text-white/60 text-center mt-4">
             © 2026 Maestria Academy Ltda / Lyra Arte LTDA
           </p>
 
@@ -1124,7 +1124,7 @@ export default function LandingPage() {
             href="https://wa.me/5511995631610"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 text-sm text-white/45 hover:text-[#F5A623] mt-4 transition-colors"
+            className="flex items-center justify-center gap-2 text-sm text-white/60 hover:text-[#F5A623] mt-4 transition-colors"
           >
             <Phone className="w-4 h-4" />
             WhatsApp: +55 11 99563-1610
