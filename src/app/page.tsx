@@ -243,7 +243,7 @@ export default function LandingPage() {
       <section
         ref={heroRef}
         id="hero"
-        className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 md:pt-40 pb-8 md:pb-12 overflow-hidden noise-bg"
+        className="relative min-h-[90vh] md:min-h-screen flex flex-col items-center justify-center px-6 pt-20 md:pt-40 pb-6 md:pb-12 overflow-hidden noise-bg"
         style={{ background: `linear-gradient(180deg, ${c.surface0} 0%, ${c.surface1} 100%)` }}
       >
         <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -305,8 +305,8 @@ export default function LandingPage() {
       <section id="pain" className="relative py-16 md:py-32 px-6 md:px-10 noise-bg" style={{ background: c.surface2 }}>
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-50" />
         <div className="relative max-w-[1200px] mx-auto">
-          <div className="flex justify-center mb-6">
-            <span className="inline-flex items-center gap-2 bg-red-500/[0.08] text-red-400 border border-red-500/15 rounded-full px-4 py-2 text-sm font-medium">
+          <div className="flex justify-center mb-4 md:mb-6">
+            <span className="inline-flex items-center gap-2 bg-red-500/[0.08] text-red-400 border border-red-500/15 rounded-full px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium">
               <AlertTriangle className="w-4 h-4" />
               Atenção
             </span>
@@ -316,7 +316,7 @@ export default function LandingPage() {
             A Verdade Que Ninguém Te Conta Sobre Criar Conteúdo em 2026
           </h2>
 
-          <p className="text-lg text-center mt-5 mb-10" style={{ color: c.body }}>
+          <p className="text-base md:text-lg text-center mt-3 md:mt-5 mb-6 md:mb-10" style={{ color: c.body }}>
             Você reconhece algum desses sintomas?
           </p>
 
@@ -338,7 +338,7 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <p className="text-lg text-center max-w-[700px] mx-auto mt-10 leading-relaxed" style={{ color: c.body }}>
+          <p className="text-base md:text-lg text-center max-w-[700px] mx-auto mt-6 md:mt-10 leading-relaxed" style={{ color: c.body }}>
             Se você se identificou com pelo menos 2 desses pontos, a culpa <span className="font-bold" style={{ color: c.heading }}>não é sua</span>. O jogo mudou. E quem não entendeu isso ainda está jogando com as regras de 2023.
           </p>
 
@@ -374,7 +374,7 @@ export default function LandingPage() {
           </p>
 
           {/* Bento Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[1000px] mx-auto mt-14">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-[1000px] mx-auto mt-8 md:mt-14">
             {[
               { title: "Inteligência Global", desc: "Nosso agente de IA monitora os 100+ melhores criadores do seu nicho em 10+ países (Japão, Alemanha, EUA, Índia...) e identifica o que está viralizando ANTES de chegar ao Brasil. Você nunca mais precisa 'ter ideias' — a IA traz os dados.", span: "md:col-span-2 md:row-span-2" },
               { title: "Engenharia Reversa", desc: "A IA filtra apenas os vídeos com 50K+ views, 1K+ comentários ou 10K+ likes. Depois transcreve, analisa hooks, formatos e temas — e te entrega um relatório completo do que funciona. É como ter um time de pesquisa de R$15K/mês trabalhando de graça.", span: "" },
@@ -407,7 +407,7 @@ export default function LandingPage() {
               Juntos, esses 4 pilares eliminam os 3 maiores custos de criação de conteúdo:{" "}
               <span className="font-semibold" style={{ color: c.heading }}>tempo</span> (de 20h para 2h/semana),{" "}
               <span className="font-semibold" style={{ color: c.heading }}>dinheiro</span> (de R$9.5K/mês em equipe para R$0) e{" "}
-              <span className="font-semibold" style={{ color: c.heading }}>energia mental</span> (de &quot;o que eu posto hoje?&quot; para piloto automático).
+              <span className="font-semibold" style={{ color: c.heading }}>energia mental</span>{" "}(de &quot;o que eu posto hoje?&quot; para piloto automático).
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-2 mt-5">
               {["⏱ 20h → 2h/semana", "💰 R$9.5K → R$0", "🧠 Piloto automático"].map((stat) => (
@@ -433,7 +433,7 @@ export default function LandingPage() {
             Não são aulas teóricas. Cada aula termina com uma <span className="font-semibold" style={{ color: c.heading }}>automação funcionando</span>.
           </p>
 
-          <div className="mt-12">
+          <div className="mt-8 md:mt-12">
             <Accordion
               defaultOpen={0}
               items={[
@@ -441,8 +441,8 @@ export default function LandingPage() {
                   trigger: (
                     <div className="flex items-center flex-1 min-w-0">
                       <span className="bg-[#F5A623]/10 text-[#F5A623] text-xs font-bold px-2.5 py-1 rounded mr-3 flex-shrink-0">M1</span>
-                      <span className="truncate">Automação de Redes Sociais</span>
-                      <span className="text-sm ml-auto pl-3 flex-shrink-0" style={{ color: c.caption }}>4 aulas</span>
+                      <span className="text-sm md:text-base leading-tight">Automação de Redes Sociais</span>
+                      <span className="text-xs md:text-sm ml-auto pl-2 md:pl-3 flex-shrink-0" style={{ color: c.caption }}>4 aulas</span>
                     </div>
                   ),
                   content: (
@@ -475,8 +475,8 @@ export default function LandingPage() {
                   trigger: (
                     <div className="flex items-center flex-1 min-w-0">
                       <span className="bg-[#F5A623]/10 text-[#F5A623] text-xs font-bold px-2.5 py-1 rounded mr-3 flex-shrink-0">M2</span>
-                      <span className="truncate">Copywriting & Roteiros com IA</span>
-                      <span className="text-sm ml-auto pl-3 flex-shrink-0" style={{ color: c.caption }}>2 aulas</span>
+                      <span className="text-sm md:text-base leading-tight">Copywriting & Roteiros com IA</span>
+                      <span className="text-xs md:text-sm ml-auto pl-2 md:pl-3 flex-shrink-0" style={{ color: c.caption }}>2 aulas</span>
                     </div>
                   ),
                   content: (
@@ -505,8 +505,8 @@ export default function LandingPage() {
                   trigger: (
                     <div className="flex items-center flex-1 min-w-0">
                       <span className="bg-[#F5A623]/10 text-[#F5A623] text-xs font-bold px-2.5 py-1 rounded mr-3 flex-shrink-0">M3</span>
-                      <span className="truncate">Avatares & Clones de IA</span>
-                      <span className="text-sm ml-auto pl-3 flex-shrink-0" style={{ color: c.caption }}>3 aulas</span>
+                      <span className="text-sm md:text-base leading-tight">Avatares & Clones de IA</span>
+                      <span className="text-xs md:text-sm ml-auto pl-2 md:pl-3 flex-shrink-0" style={{ color: c.caption }}>3 aulas</span>
                     </div>
                   ),
                   content: (
@@ -536,8 +536,8 @@ export default function LandingPage() {
                   trigger: (
                     <div className="flex items-center flex-1 min-w-0">
                       <span className="bg-[#F5A623]/10 text-[#F5A623] text-xs font-bold px-2.5 py-1 rounded mr-3 flex-shrink-0">M4</span>
-                      <span className="truncate">Carrosséis & Anúncios</span>
-                      <span className="text-sm ml-auto pl-3 flex-shrink-0" style={{ color: c.caption }}>5 aulas</span>
+                      <span className="text-sm md:text-base leading-tight">Carrosséis & Anúncios</span>
+                      <span className="text-xs md:text-sm ml-auto pl-2 md:pl-3 flex-shrink-0" style={{ color: c.caption }}>5 aulas</span>
                     </div>
                   ),
                   content: (
@@ -585,8 +585,8 @@ export default function LandingPage() {
           <div className="absolute w-[400px] h-[400px] rounded-full bg-[#E1306C]/[0.04] blur-[100px] bottom-20 right-20" />
         </div>
         <div className="relative max-w-[1200px] mx-auto">
-          <div className="flex justify-center mb-6">
-            <span className="inline-flex items-center gap-2 bg-[#E1306C]/[0.08] text-[#E1306C] border border-[#E1306C]/15 rounded-full px-4 py-2 text-sm font-medium">
+          <div className="flex justify-center mb-4 md:mb-6">
+            <span className="inline-flex items-center gap-2 bg-[#E1306C]/[0.08] text-[#E1306C] border border-[#E1306C]/15 rounded-full px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium">
               <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
               @maestrosdaia — Conta Verificada
             </span>
@@ -631,8 +631,8 @@ export default function LandingPage() {
           </div>
 
           {/* Viral Reel Proof */}
-          <div className="mt-8 md:mt-14 max-w-[1000px] mx-auto">
-            <div className="flex justify-center mb-8">
+          <div className="mt-6 md:mt-14 max-w-[1000px] mx-auto">
+            <div className="flex justify-center mb-4 md:mb-8">
               <span className="inline-flex items-center gap-2 bg-[#F5A623]/[0.08] text-[#F5A623] border border-[#F5A623]/15 rounded-full px-4 py-2 text-sm font-medium">
                 <Play className="w-3.5 h-3.5 fill-current" />
                 1 Único Vídeo — Resultado Real
@@ -735,7 +735,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <p className="text-xl text-center max-w-[600px] mx-auto mt-10 leading-relaxed" style={{ color: c.body }}>
+          <p className="text-lg md:text-xl text-center max-w-[600px] mx-auto mt-6 md:mt-10 leading-relaxed" style={{ color: c.body }}>
             Você não vai pagar <span className="line-through" style={{ color: c.muted }}>R$2.026</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$997</span>. Nem <span className="line-through" style={{ color: c.muted }}>R$497</span>. <span className="font-bold" style={{ color: c.heading }}>Hoje você leva tudo por apenas R$197 — ou 12x de R$16,42.</span>
           </p>
         </div>
@@ -755,7 +755,7 @@ export default function LandingPage() {
             14 aulas de criação de conteúdo com IA. Tudo o que você precisa para automatizar:
           </p>
 
-          <div className="max-w-[600px] mx-auto mt-8">
+          <div className="max-w-[600px] mx-auto mt-5 md:mt-8">
             {[
               "Módulo completo (14 aulas, 4+ horas)",
               "Automações prontas copy-paste-activate",
@@ -817,7 +817,7 @@ export default function LandingPage() {
             O Risco É <span className="text-[#F5A623]">100% Nosso</span>
           </h2>
 
-          <div className="max-w-[600px] mx-auto mt-10">
+          <div className="max-w-[600px] mx-auto mt-6 md:mt-10">
             <div className="bg-[#1C2333]/50 backdrop-blur-sm border border-[#F5A623]/10 rounded-xl p-5 md:p-7 hover:border-[#F5A623]/20 transition-colors duration-300">
               <h3 className="font-display text-lg font-bold mt-2" style={{ color: c.heading }}>
                 Garantia Incondicional de <span className="text-[#F5A623]">7 Dias</span>
@@ -876,9 +876,9 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="border-l-2 border-[#F5A623]/30 rounded-r-xl p-5 md:p-7 max-w-[800px] mx-auto mt-8 md:mt-12 relative" style={{ background: `${c.surface3}80` }}>
-            <span className="absolute -top-1 left-4 text-[#F5A623] text-5xl opacity-15 leading-none font-serif">&quot;</span>
-            <p className="text-base leading-relaxed italic" style={{ color: c.body }}>
+          <div className="border-l-2 border-[#F5A623]/30 rounded-r-xl p-4 md:p-7 max-w-[800px] mx-auto mt-6 md:mt-12 relative" style={{ background: `${c.surface3}80` }}>
+            <span className="absolute -top-1 left-4 text-[#F5A623] text-4xl md:text-5xl opacity-15 leading-none font-serif">&quot;</span>
+            <p className="text-sm md:text-base leading-relaxed italic" style={{ color: c.body }}>
               Nenhum dos dois sabia programar. Gastaram <span className="font-semibold not-italic" style={{ color: c.heading }}>R$8K em consultoria de IA</span> e receberam um PDF genérico. Gastaram <span className="font-semibold not-italic" style={{ color: c.heading }}>R$12K em ferramentas</span> e nunca integraram. Contrataram um <span className="font-semibold not-italic" style={{ color: c.heading }}>dev freelancer</span> e o chatbot respondeu &quot;Não entendi&quot; 70% das vezes. Até que descobriram: você não precisa PROGRAMAR IA — precisa <span className="text-[#F5A623] font-bold not-italic">ORQUESTRAR IA</span>. Como um maestro rege uma orquestra.
             </p>
           </div>
@@ -922,16 +922,16 @@ export default function LandingPage() {
             Cada dia sem esse sistema é mais um dia perdendo para quem já usa IA para criar conteúdo <span className="font-semibold" style={{ color: c.heading }}>47x mais rápido</span>.
           </p>
 
-          <div className="bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg px-6 py-4 max-w-[500px] mx-auto mt-8">
+          <div className="bg-[#F5A623]/[0.06] border border-[#F5A623]/15 rounded-lg px-4 py-3 md:px-6 md:py-4 max-w-[500px] mx-auto mt-6 md:mt-8">
             <p className="text-[#F5A623] font-medium text-sm">
               ⚠️ Preço de lançamento por tempo limitado. O valor sobe para R$497 em breve.
             </p>
           </div>
 
           <div className="mt-8">
-            <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" size="lg" className="!shadow-[0_0_50px_rgba(245,166,35,0.25)]">
+            <CtaButton href="https://pay.onprofit.com.br/5ayf7jcr?off=cQL91p" size="lg" className="!shadow-[0_0_50px_rgba(245,166,35,0.25)] whitespace-nowrap">
               GARANTIR MINHA VAGA AGORA
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 flex-shrink-0" />
             </CtaButton>
           </div>
 
