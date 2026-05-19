@@ -789,6 +789,10 @@ export default function LandingPage() {
                   GARANTIR MINHA VAGA
                   <ArrowRight className="w-5 h-5" />
                 </CtaButton>
+                <p className="text-[11px] mt-3 text-center" style={{ color: c.caption }}>
+                  Ao clicar, você concorda em receber mensagens da Maestros da IA e aceita nossa{" "}
+                  <a href="https://politica.maestrosdaia.com/" style={{ textDecoration: "underline" }}>Política de Privacidade</a>.
+                </p>
                 <ul className="mt-5 space-y-2">
                   {["14 aulas + automações prontas", "Garantia de 7 dias", "Templates copy-paste-activate", "1 ano de acesso + atualizações"].map((f) => (
                     <li key={f} className="flex items-center gap-2 text-sm" style={{ color: c.body }}>
@@ -938,6 +942,10 @@ export default function LandingPage() {
           <p className="text-sm mt-4" style={{ color: c.caption }}>
             Pagamento seguro | Garantia de reembolso | Acesso imediato
           </p>
+          <p className="text-[11px] mt-3 max-w-md mx-auto" style={{ color: c.caption }}>
+            Ao clicar, você concorda em receber mensagens da Maestros da IA e aceita nossa{" "}
+            <a href="https://politica.maestrosdaia.com/" style={{ textDecoration: "underline" }}>Política de Privacidade</a>.
+          </p>
 
           <div className="flex justify-center gap-8 mt-6">
             {[
@@ -971,7 +979,7 @@ export default function LandingPage() {
           <div className="flex justify-center gap-4 mt-6">
             <a href="#" className="text-sm hover:underline underline-offset-4" style={{ color: c.caption }}>Termos de Uso</a>
             <span style={{ color: c.muted }}>|</span>
-            <a href="#" className="text-sm hover:underline underline-offset-4" style={{ color: c.caption }}>Política de Privacidade</a>
+            <a href="https://politica.maestrosdaia.com/" className="text-sm hover:underline underline-offset-4" style={{ color: c.caption }}>Política de Privacidade</a>
           </div>
           <p className="text-xs text-center mt-4" style={{ color: c.caption }}>© 2026 Maestria Academy Ltda / Lyra Arte LTDA</p>
           <div className="pb-8" />
